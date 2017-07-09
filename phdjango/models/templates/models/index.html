@@ -1,0 +1,17 @@
+{% extends 'bootstrap/base.html' %}
+{% load bootstrap3 %}
+
+{% block title %}Список моделей{% endblock %}
+
+{% block content %}
+    {% if latest_model_list %}
+    <ul>
+    {% for model in latest_model_list %}
+        <li><a href="/models/{{ model.id }}/">{{ model }}</a></li>
+    {% endfor %}
+    </ul>
+    {% else %}
+        <p>No models are available.</p>
+    {% endif %}
+
+{% endblock %}

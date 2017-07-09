@@ -1,0 +1,18 @@
+{% extends 'bootstrap/base.html' %}
+{% load bootstrap3 %}
+
+{% block title %}{{ object }}{% endblock %}
+
+{% block content %}
+    <a href="/models/{{ object.id }}/run">Запустити модель із заданою конфігурацією</a>
+    <h1>Попередні запуски</h1>
+    {% if 1 %}
+    <ul>
+        {% for result in object.modelresult_set.all %}
+            <li><a href="/models/result/{{ result.id }}">{{ result }}</a></li>
+        {% endfor %}
+    </ul>
+    {% else %}
+        <p>Запусків поки не було.</p>
+    {% endif %}
+{% endblock %}

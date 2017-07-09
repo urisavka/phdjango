@@ -1,0 +1,10 @@
+{% extends 'bootstrap/base.html' %}
+{% load bootstrap3 %}
+
+{% block title %}{{ object }}{% endblock %}
+
+{% block content %}
+    <a href="/models/{{ object.modelConfig.id }}">{{ object.modelConfig }}</a>
+    <p>Тут буде інформація про запуск</p>
+
+{% endblock %}
