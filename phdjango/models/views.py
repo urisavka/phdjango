@@ -1,10 +1,10 @@
 from django.shortcuts import render
-from .models import ModelConfig, ModelResult
+from .models import ModelConfig, ModelResult, ModelRunConfiguration
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.views import generic
-
+from django.forms import ModelForm
 
 class IndexView(generic.ListView):
     template_name = 'models/index.html'
@@ -25,9 +25,22 @@ class ModelResultDetailView(generic.DetailView):
     template_name = 'models/result-detail.html'
 
 
-def run(request, model_config_id):
-    modelConfing = get_object_or_404(ModelConfig, pk=model_config_id)
+def prepareRun(request):
+    class ModelResultForm(ModelForm):
+        class Meta:
+            model = ModelResult
+            exclude = []
+    form = ModelResultForm()
+    return render(request, 'models/run-conf.html', {
+        'form': form,
+    })
+
+
+def run(request):
+    modelConfig = get_object_or_404(ModelConfig, pk=request.POST['modelConfig'])
+    modelRunConfiguration = get_object_or_404(ModelRunConfiguration, pk=request.POST['modelRunConfiguration'])
     modelResult = ModelResult()
-    modelResult.modelConfig = modelConfing
+    modelResult.modelConfig = modelConfig
+    modelResult.modelRunConfiguration = modelRunConfiguration
     modelResult.save()
     return HttpResponseRedirect(reverse('models:model-result-detail', args=(modelResult.id,)))
