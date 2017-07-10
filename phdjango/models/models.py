@@ -18,8 +18,14 @@ class ModelConfig(models.Model):
     firm_parameters_salary = models.BooleanField("Заробітна платна", default=False)
     firm_parameters_price = models.BooleanField("Ціна", default=False)
     firm_parameters_workers_count = models.BooleanField("Планова кількість працівників", default=False)
+    firm_parameters_plan = models.BooleanField("Плановий обсяг виробництва", default=False)
     firm_parameters_salary_budget = models.BooleanField("Бюджет на оплату праці", default=False)
-    # ...
+
+    firm_parameters_raw_need = models.BooleanField("Потреба в сировині", default=False)
+    firm_parameters_raw_budget = models.BooleanField("Бюджет на закупівлю сировини", default=False)
+
+    firm_parameters_capital_need = models.BooleanField("Потреба в капіталі", default=False)
+    firm_parameters_capital_budget = models.BooleanField("Бюджет на закупівлю капіталу", default=False)
 
     def __str__(self):
         return "Модель створена " + self.created_at.strftime("%Y-%m-%d %H:%M:%S")
