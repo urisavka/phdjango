@@ -1,8 +1,7 @@
 from django.contrib import admin
 from django.forms import forms
 from betterforms.forms import BetterModelForm
-
-from .models import ModelConfig, ModelResult
+from .models import ModelConfig, ModelResult, ModelRunConfiguration
 
 
 class ModelConfigAdmin(admin.ModelAdmin):
@@ -35,4 +34,5 @@ class ModelConfigAdmin(admin.ModelAdmin):
 
 
 admin.site.register(ModelConfig, ModelConfigAdmin)
+admin.site.register(ModelRunConfiguration)
 admin.site.register(ModelResult)

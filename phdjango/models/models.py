@@ -28,7 +28,7 @@ class ModelConfig(models.Model):
     firm_parameters_capital_budget = models.BooleanField("Бюджет на закупівлю капіталу", default=False)
 
     def __str__(self):
-        return "Модель створена " + self.created_at.strftime("%Y-%m-%d %H:%M:%S")
+        return "Модель " + str(self.title) +"створена " + self.created_at.strftime("%Y-%m-%d %H:%M:%S")
 
 
 class ModelRunConfiguration(models.Model):
@@ -36,11 +36,12 @@ class ModelRunConfiguration(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
-        return "Конфігурація " + self.title + " створена " + self.created_at.strftime("%Y-%m-%d %H:%M:%S")
+        return "Конфігурація " + str(self.title) + " створена " + self.created_at.strftime("%Y-%m-%d %H:%M:%S")
 
 
 class ModelResult(models.Model):
-    modelConfig = models.ForeignKey(ModelConfig, on_delete=models.CASCADE)
+    modelRunConfiguration = models.ForeignKey(ModelRunConfiguration, on_delete=models.CASCADE, null=True)
+    modelConfig = models.ForeignKey(ModelConfig, on_delete=models.CASCADE, null=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):

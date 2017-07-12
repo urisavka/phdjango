@@ -4,7 +4,8 @@
 {% block title %}{{ object }}{% endblock %}
 
 {% block content %}
-    <a href="/models/{{ object.modelConfig.id }}">{{ object.modelConfig }}</a>
+    <a href="/models/{{ object.modelConfig.id }}">{{ object.modelConfig }}</a> <br />
+    <a href="/models/{{ object.modelRunConfiguration.id }}">{{ object.modelRunConfiguration }}</a>
     <p>Тут буде інформація про запуск</p>
 
 {% endblock %}
