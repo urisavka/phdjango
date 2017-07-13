@@ -6,29 +6,70 @@ class ModelConfig(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     title = models.CharField(null=True, max_length=1024)
     # step 1
-    structure_firms_producers = models.BooleanField("Фірми-виробники споживчої продукції", default=True)
-    structure_households = models.BooleanField("Домогосподарства", default=True)
+    production_firm_structure_id = models.ForeignKey(FirmStructure, on_delete=models.CASCADE, null = True)
+    raw_firm_structure_id = models.ForeignKey(FirmStructure, on_delete=models.CASCADE, null=True)
+    capital_firm_structure_id = models.ForeignKey(FirmStructure, on_delete=models.CASCADE, null=True)
 
-    structure_firms_capital = models.BooleanField("Фірми-виробники капіталу", default=False)
-    structure_firms_raw = models.BooleanField("Фірми-виробники сировини", default=False)
-    structure_government = models.BooleanField("Держава", default=False)
-    structure_outside_world = models.BooleanField("Зовнішній світ", default=False)
+    household_structure_id = models.ForeignKey(HouseholdStructure, on_delete=models.CASCADE, null = True)
 
-    #step 2
-    firm_parameters_salary = models.BooleanField("Заробітна платна", default=False)
-    firm_parameters_price = models.BooleanField("Ціна", default=False)
-    firm_parameters_workers_count = models.BooleanField("Планова кількість працівників", default=False)
-    firm_parameters_plan = models.BooleanField("Плановий обсяг виробництва", default=False)
-    firm_parameters_salary_budget = models.BooleanField("Бюджет на оплату праці", default=False)
+    government_structure_id = models.ForeignKey(GovernmentStructure, on_delete=models.CASCADE, null = True)
+    outside_world = models.BooleanField("Зовнішній світ", default=False)
 
-    firm_parameters_raw_need = models.BooleanField("Потреба в сировині", default=False)
-    firm_parameters_raw_budget = models.BooleanField("Бюджет на закупівлю сировини", default=False)
-
-    firm_parameters_capital_need = models.BooleanField("Потреба в капіталі", default=False)
-    firm_parameters_capital_budget = models.BooleanField("Бюджет на закупівлю капіталу", default=False)
 
     def __str__(self):
         return "Модель " + str(self.title) +"створена " + self.created_at.strftime("%Y-%m-%d %H:%M:%S")
+
+
+class FirmStructure(models.Model):
+    type = models.CharField("Тип фірми", choices = (
+        ('raw_firm', 'Виробник сировини'),
+        ('capital_firm', 'Виробник капіталу'),
+        ('production_firm', 'Виробник споживчої продукції')
+    ), default = 'production_firm')
+    salary = models.BooleanField("Заробітна платна", default=False)
+    price = models.BooleanField("Ціна", default=False)
+    workers_count = models.BooleanField("Планова кількість працівників", default=False)
+    plan = models.BooleanField("Плановий обсяг виробництва", default=False)
+    salary_budget = models.BooleanField("Бюджет на оплату праці", default=False)
+
+    raw_need = models.BooleanField("Потреба в сировині", default=False)
+    raw_budget = models.BooleanField("Бюджет на закупівлю сировини", default=False)
+
+    capital_need = models.BooleanField("Потреба в капіталі", default=False)
+    capital_budget = models.BooleanField("Бюджет на закупівлю капіталу", default=False)
+
+class HouseholdStructure(models.Model):
+    consumption_need = models.BooleanField("Потреба в споживчій продукції", default=False)
+    consumption_budget = models.BooleanField("Бюджет на споживання", default=False)
+
+class GovernmentStructure(models.Model):
+    income_tax = models.BooleanField("Податок на доходи фізичних осіб", default=False)
+    profit_tax = models.BooleanField("Податок на прибуток", default=False)
+    import_tax = models.BooleanField("Ввізне мито", default=False)
+
+    coefficient_help = models.BooleanField("Коефіцієнт розрахунку допомоги по безробіттю", default=False)
+    minimal_tax = models.BooleanField("Мінімальна допомога по безробіттю", default=False)
+
+class Learning(models.Model):
+    firm_structure_id = models.ForeignKey(FirmStructure, on_delete=models.CASCADE, null = True)
+    method = models.CharField("Метод навчання", choices = (
+        ('intuitive', 'Інтуїтивний метод'),
+        ('extrapolation', 'Метод екстраполяції тенденції'),
+        ('moses', 'Метод маржі прибутку'),
+        ('random', 'Випадковий вибір'),
+
+        ('rational', 'Раціональний вибір'),
+        ('nonconscious', 'Несвідоме навчання'),
+        ('qlearning', 'Q-навчання'),
+
+        ('hierarchical', 'Ієрархічна база правил'),
+        ('lcs', 'Система лінійних класифікаторів'),
+        ('regression_decision_tree', 'Регресійне дерево рішень'),
+
+        ('perceptron', 'Одношаровий персептрон'),
+        ('svm', 'Система опорних векторів'),
+        ('classification_decision_tree', 'Класифікаційне дерево рішень'),
+    ), default = 'random')
 
 
 class ModelRunConfiguration(models.Model):
