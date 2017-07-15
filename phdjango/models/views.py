@@ -40,6 +40,10 @@ def edit_model_config_household(request, model_config_id):
     return generic_model_config_entry(request, model_config_id, cls=HouseholdStructure, key='household_structure')
 
 
+def edit_model_config_government(request, model_config_id):
+    return generic_model_config_entry(request, model_config_id, cls=GovernmentStructure, key='government_structure')
+
+
 def prepareRun(request):
     class ModelResultForm(ModelForm):
         class Meta:

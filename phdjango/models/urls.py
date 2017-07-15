@@ -11,5 +11,6 @@ urlpatterns = [
     url(r'^prepare-run/$', views.prepareRun, name='prepare-run'),
     url(r'^model/create/$', views.create_model_config, name='model-config-create'),
     url(r'^model/(?P<model_config_id>[0-9]+)/edit/$', views.edit_model_config, name='model-config-edit'),
-    url(r'^model/(?P<model_config_id>[0-9]+)/edit/household/$', views.edit_model_config_household, name='model-config-edit-household'),
+    url(r'^model/(?P<model_config_id>[0-9]+)/edit/household/$', views.edit_model_config_household, name='model-config-edit-household_structure'),
+    url(r'^model/(?P<model_config_id>[0-9]+)/edit/government/$', views.edit_model_config_government, name='model-config-edit-government_structure'),
 ]

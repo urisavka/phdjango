@@ -3,7 +3,7 @@
 {% block subtitle %}{% endblock %}
 
 {% block form %}
-<form action="{% url 'models:model-config-edit-household' model_config_id %}" method="post"
+<form action="{% url 'models:model-config-edit-'|add:key model_config_id %}" method="post"
       enctype="multipart/form-data">
     {% csrf_token %}
     {{form.as_p}}

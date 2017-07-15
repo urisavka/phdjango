@@ -15,7 +15,7 @@ def generic_model_config_entry(request, model_config_id, cls, key):
     if entity is None:
         entity = cls()
         entity.save()
-        settattr(model_config, key)
+        setattr(model_config, key, entity)
         model_config.save()
 
     form = EntityForm(request.POST or None, instance=entity)

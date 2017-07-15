@@ -5,11 +5,14 @@
 {% block content %}
 <ul class="nav nav-tabs">
     <li {% if key == 'household_structure' %} class="active"{% endif %}>
-        <a href="{% url 'models:model-config-edit-household' model_config_id %}">Домогосподарства</a>
+        <a href="{% url 'models:model-config-edit-household_structure' model_config_id %}">Домогосподарства</a>
     </li>
-    <li><a href="#">Menu 1</a></li>
-    <li><a href="#">Menu 2</a></li>
-    <li><a href="#">Menu 3</a></li>
+    <li {% if key == 'government_structure' %} class="active"{% endif %}>
+        <a href="{% url 'models:model-config-edit-government_structure' model_config_id %}">Уряд</a>
+    </li>
+    <li><a href="#">TBD</a></li>
+    <li><a href="#">TBD</a></li>
+    <li><a href="#">TBD</a></li>
 </ul>
 <h3>{% block subtitle %}{% endblock %}</h3>
 
