@@ -29,11 +29,11 @@ class ModelResultDetailView(generic.DetailView):
 def create_model_config(request):
     model_config = ModelConfig()
     model_config.save()
-    return HttpResponseRedirect(reverse('models:model-config-edit-household', args=(model_config.id,)))
+    return HttpResponseRedirect(reverse('models:model-config-edit-household_structure', args=(model_config.id,)))
 
 
 def edit_model_config(request, model_config_id):
-    return HttpResponseRedirect(reverse('models:model-config-edit-household', args=(model_config_id,)))
+    return HttpResponseRedirect(reverse('models:model-config-edit-household_structure', args=(model_config_id,)))
 
 
 def edit_model_config_household(request, model_config_id):

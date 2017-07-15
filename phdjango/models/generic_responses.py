@@ -2,6 +2,7 @@ from .models import ModelConfig
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.forms import ModelForm
+from django.http import HttpResponseRedirect
 
 
 def generic_model_config_entry(request, model_config_id, cls, key):
@@ -22,6 +23,7 @@ def generic_model_config_entry(request, model_config_id, cls, key):
     if form.is_valid():
         my_model = form.save()
         my_model.save()
+        return HttpResponseRedirect(reverse('models:model-config-edit-' + key, args=(model_config.id,)))
 
     return render(request, 'models/run-config-edit-generic-child.html', {
         'form': form,
