@@ -1,0 +1,17 @@
+{% extends 'models/base.html' %}
+
+{% block title %}Налаштування моделі{% endblock %}
+
+{% block content %}
+<ul class="nav nav-tabs">
+    <li {% if key == 'household_structure' %} class="active"{% endif %}>
+        <a href="{% url 'models:model-config-edit-household' model_config_id %}">Домогосподарства</a>
+    </li>
+    <li><a href="#">Menu 1</a></li>
+    <li><a href="#">Menu 2</a></li>
+    <li><a href="#">Menu 3</a></li>
+</ul>
+<h3>{% block subtitle %}{% endblock %}</h3>
+
+{% block form %}{% endblock %}
+{% endblock %}

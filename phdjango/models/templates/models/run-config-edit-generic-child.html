@@ -1,0 +1,12 @@
+{% extends 'models/run-config-edit-base.html' %}
+
+{% block subtitle %}{% endblock %}
+
+{% block form %}
+<form action="{% url 'models:model-config-edit-household' model_config_id %}" method="post"
+      enctype="multipart/form-data">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" value="Зберегти"/>
+</form>
+{% endblock %}

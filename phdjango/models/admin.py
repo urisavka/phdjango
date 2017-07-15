@@ -1,7 +1,8 @@
+# coding=utf-8
 from django.contrib import admin
 from django.forms import forms
 from betterforms.forms import BetterModelForm
-from .models import ModelConfig, ModelResult, ModelRunConfiguration
+from .models import *
 
 
 class ModelConfigAdmin(admin.ModelAdmin):
@@ -36,3 +37,5 @@ class ModelConfigAdmin(admin.ModelAdmin):
 admin.site.register(ModelConfig, ModelConfigAdmin)
 admin.site.register(ModelRunConfiguration)
 admin.site.register(ModelResult)
+admin.site.register(FirmStructure)
+admin.site.register(Learning)

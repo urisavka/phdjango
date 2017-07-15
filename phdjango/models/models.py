@@ -63,17 +63,17 @@ class ModelConfig(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     title = models.CharField(null=True, max_length=1024)
     # step 1
-    production_firm_structure_id = models.ForeignKey(FirmStructure, related_name="ProductionFirm", null=True)
-    raw_firm_structure_id = models.ForeignKey(FirmStructure, related_name="RawFirm", null=True)
-    capital_firm_structure_id = models.ForeignKey(FirmStructure, related_name="CapitalFirm", null=True)
+    production_firm_structure = models.ForeignKey(FirmStructure, related_name="ProductionFirm", null=True)
+    raw_firm_structure = models.ForeignKey(FirmStructure, related_name="RawFirm", null=True)
+    capital_firm_structure = models.ForeignKey(FirmStructure, related_name="CapitalFirm", null=True)
 
-    household_structure_id = models.ForeignKey(HouseholdStructure, null=True)
+    household_structure = models.ForeignKey(HouseholdStructure, null=True)
 
-    government_structure_id = models.ForeignKey(GovernmentStructure, null=True)
+    government_structure = models.ForeignKey(GovernmentStructure, null=True)
     outside_world = models.BooleanField("Зовнішній світ", default=False)
 
     def __str__(self):
-        return "Модель " + str(self.title) + "створена " + self.created_at.strftime("%Y-%m-%d %H:%M:%S")
+        return "Модель " + str(self.title) if self.title is not None else "" + "створена " + self.created_at.strftime("%Y-%m-%d %H:%M:%S")
 
 
 class ModelRunConfiguration(models.Model):
@@ -81,7 +81,7 @@ class ModelRunConfiguration(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
-        return "Конфігурація " + str(self.title) + " створена " + self.created_at.strftime("%Y-%m-%d %H:%M:%S")
+        return "Конфігурація " + str(self.title) if self.title is not None else "" + " створена " + self.created_at.strftime("%Y-%m-%d %H:%M:%S")
 
 
 class ModelResult(models.Model):
