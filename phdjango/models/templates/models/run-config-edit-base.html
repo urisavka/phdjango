@@ -19,6 +19,9 @@
     <li {% if key == 'capital_firm_structure' %} class="active"{% endif %}>
         <a href="{% url 'models:model-config-edit-capital_firm_structure' model_config_id %}">Фірми-виробники капіталу</a>
     </li>
+    <li {% if key == 'extra' %} class="active"{% endif %}>
+        <a href="{% url 'models:model-config-edit-extra' model_config_id %}">Додаткові параметри</a>
+    </li>
 </ul>
 <h3>{% block subtitle %}{% endblock %}</h3>
 

@@ -56,6 +56,29 @@ def edit_model_config_capital_firm(request, model_config_id):
     return generic_model_config_entry(request, model_config_id, cls=FirmStructure, key='capital_firm_structure')
 
 
+def edit_model_config_extra(request, model_config_id):
+    class EntityForm(ModelForm):
+        class Meta:
+            model = ModelConfig
+            fields = ['outside_world']
+
+    model_config = get_object_or_404(ModelConfig, pk=model_config_id)
+
+    key = 'extra'
+    form = EntityForm(request.POST or None, instance=model_config)
+    if form.is_valid():
+        my_model = form.save()
+        my_model.save()
+        return HttpResponseRedirect(reverse('models:model-config-edit-' + key, args=(model_config.id,)))
+
+    return render(request, 'models/run-config-edit-generic-child.html', {
+        'form': form,
+        'model_config_id': model_config_id,
+        'key': key
+    })
+
+
+
 def prepareRun(request):
     class ModelResultForm(ModelForm):
         class Meta:

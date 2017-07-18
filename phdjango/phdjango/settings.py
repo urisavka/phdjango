@@ -31,7 +31,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'bootstrap3',
     'betterforms',
     'models.apps.ModelsConfig',
     'django.contrib.admin',
