@@ -30,11 +30,11 @@ class HouseholdStructure(models.Model):
 
 
 class FirmStructure(models.Model):
-    type = models.CharField("Тип фірми", choices=(
-        ('raw_firm', 'Виробник сировини'),
-        ('capital_firm', 'Виробник капіталу'),
-        ('production_firm', 'Виробник споживчої продукції')
-    ), default='production_firm', max_length = 1024)
+    # type = models.CharField("Тип фірми", choices=(
+    #     ('raw_firm', 'Виробник сировини'),
+    #     ('capital_firm', 'Виробник капіталу'),
+    #     ('production_firm', 'Виробник споживчої продукції')
+    # ), default='production_firm', max_length = 1024)
     salary = models.BooleanField("Заробітна платна", default=False)
     price = models.BooleanField("Ціна", default=False)
     workers_count = models.BooleanField("Планова кількість працівників", default=False)
@@ -46,7 +46,7 @@ class FirmStructure(models.Model):
 
     capital_need = models.BooleanField("Потреба в капіталі", default=False)
     capital_budget = models.BooleanField("Бюджет на закупівлю капіталу", default=False)
-    learning = models.ManyToManyField(Learning)
+    # learning = models.ManyToManyField(Learning)
 
 
 class GovernmentStructure(models.Model):

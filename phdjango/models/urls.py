@@ -13,4 +13,7 @@ urlpatterns = [
     url(r'^model/(?P<model_config_id>[0-9]+)/edit/$', views.edit_model_config, name='model-config-edit'),
     url(r'^model/(?P<model_config_id>[0-9]+)/edit/household/$', views.edit_model_config_household, name='model-config-edit-household_structure'),
     url(r'^model/(?P<model_config_id>[0-9]+)/edit/government/$', views.edit_model_config_government, name='model-config-edit-government_structure'),
+    url(r'^model/(?P<model_config_id>[0-9]+)/edit/production-firm/$', views.edit_model_config_production_firm, name='model-config-edit-production_firm_structure'),
+    url(r'^model/(?P<model_config_id>[0-9]+)/edit/raw-firm/$', views.edit_model_config_raw_firm, name='model-config-edit-raw_firm_structure'),
+    url(r'^model/(?P<model_config_id>[0-9]+)/edit/capital-firm/$', views.edit_model_config_capital_firm, name='model-config-edit-capital_firm_structure'),
 ]

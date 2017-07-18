@@ -44,11 +44,24 @@ def edit_model_config_government(request, model_config_id):
     return generic_model_config_entry(request, model_config_id, cls=GovernmentStructure, key='government_structure')
 
 
+def edit_model_config_production_firm(request, model_config_id):
+    return generic_model_config_entry(request, model_config_id, cls=FirmStructure, key='production_firm_structure')
+
+
+def edit_model_config_raw_firm(request, model_config_id):
+    return generic_model_config_entry(request, model_config_id, cls=FirmStructure, key='raw_firm_structure')
+
+
+def edit_model_config_capital_firm(request, model_config_id):
+    return generic_model_config_entry(request, model_config_id, cls=FirmStructure, key='capital_firm_structure')
+
+
 def prepareRun(request):
     class ModelResultForm(ModelForm):
         class Meta:
             model = ModelResult
             exclude = []
+
     form = ModelResultForm()
     return render(request, 'models/run-conf.html', {
         'form': form,
