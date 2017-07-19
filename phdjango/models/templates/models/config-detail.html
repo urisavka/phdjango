@@ -3,6 +3,8 @@
 {% block title %}{{ object }}{% endblock %}
 
 {% block content %}
+    <pre>{{ data }}</pre>
+    <br>
     <a href="/models/{{ object.id }}/run">Запустити модель із заданою конфігурацією</a>
     <h1>Попередні запуски</h1>
     {% if 1 %}

@@ -5,6 +5,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.views import generic
 from django.forms import ModelForm
+from django.core import serializers
 
 
 class IndexView(generic.ListView):
@@ -75,6 +76,14 @@ def edit_model_config_extra(request, model_config_id):
         'form': form,
         'model_config_id': model_config_id,
         'key': key
+    })
+
+def get_model_view(request, model_config_id):
+    model_config = get_object_or_404(ModelConfig, pk=model_config_id)
+    data = serializers.serialize('json', [model_config], use_natural_foreign_keys=True, use_natural_primary_keys=True)
+    return render(request, 'models/config-detail.html', {
+        "data": data,
+        "object": model_config
     })
 
 
