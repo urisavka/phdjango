@@ -28,6 +28,12 @@ class HouseholdStructure(models.Model):
     consumption_need = models.BooleanField("Потреба в споживчій продукції", default=False)
     consumption_budget = models.BooleanField("Бюджет на споживання", default=False)
 
+    def natural_key(self):
+        return {
+            "consumption_need": self.consumption_need,
+            "consumption_budget": self.consumption_budget
+        }
+
 
 class FirmStructure(models.Model):
     # type = models.CharField("Тип фірми", choices=(
@@ -48,6 +54,19 @@ class FirmStructure(models.Model):
     capital_budget = models.BooleanField("Бюджет на закупівлю капіталу", default=False)
     # learning = models.ManyToManyField(Learning)
 
+    def natural_key(self):
+        return {
+                   "salary": self.salary,
+                   "price": self.price,
+                   "workers_count": self.workers_count,
+                   "plan": self.plan,
+                   "salary_budget": self.salary_budget,
+                   "raw_need": self.raw_need,
+                   "raw_budget": self.raw_budget,
+                   "capital_need": self.capital_need,
+                   "capital_budget": self.capital_budget
+        }
+
 
 class GovernmentStructure(models.Model):
     income_tax = models.BooleanField("Податок на доходи фізичних осіб", default=False)
@@ -56,6 +75,15 @@ class GovernmentStructure(models.Model):
 
     coefficient_help = models.BooleanField("Коефіцієнт розрахунку допомоги по безробіттю", default=False)
     minimal_tax = models.BooleanField("Мінімальна допомога по безробіттю", default=False)
+
+    def natural_key(self):
+        return {
+            "income_tax": self.income_tax,
+            "profit_tax": self.profit_tax,
+            "import_tax": self.import_tax,
+            "coefficient_help": self.coefficient_help,
+            "minimal_tax": self.minimal_tax
+        }
 
 
 class ModelConfig(models.Model):
@@ -71,6 +99,13 @@ class ModelConfig(models.Model):
 
     government_structure = models.ForeignKey(GovernmentStructure, null=True)
     outside_world = models.BooleanField("Зовнішній світ", default=False)
+
+    def natural_key(self):
+        return (self.title, self.created_at, ) + self.production_firm_structure.natural_key() + \
+               self.raw_firm_structure.natural_key() + self.capital_firm_structure.natural_key() + \
+               self.household_structure.natural_key() + self.government_structure.natural_key()
+
+    natural_key.dependencies = ['phdjango.FirmStructure', 'phdjango.HouseholdStructure', 'phdjango.GovernmentStructure']
 
     def __str__(self):
         return "Модель " + str(self.title) if self.title is not None else "" + "створена " + self.created_at.strftime("%Y-%m-%d %H:%M:%S")
