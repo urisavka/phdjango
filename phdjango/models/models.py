@@ -111,9 +111,62 @@ class ModelConfig(models.Model):
         return "Модель " + str(self.title) if self.title is not None else "" + "створена " + self.created_at.strftime("%Y-%m-%d %H:%M:%S")
 
 
+class FirmRunConfiguration(models.Model):
+    demand_elasticity = models.FloatField("Еластичність попиту на продукцію")
+
+    labor_productivity = models.FloatField("Продуктивність праці")
+
+    capital_productivity = models.FloatField("Продуктивність капіталу", null = True)
+    capital_amortization = models.FloatField("Амортизація капіталу", null = True)
+
+    raw_productivity = models.FloatField("Продуктивність сировини", null = True)
+
+    learning_method = models.ForeignKey(Learning, related_name = "LearningMethod")
+
+
+class HouseholdRunConfiguration(models.Model):
+    count = models.IntegerField("Кількість домогосподарств")
+
+    consumption_need = models.FloatField("Потреба в споживчій продукції", null = True)
+    consumption_budget = models.FloatField("Бюджет на споживання", null = True)
+
+
+class GovernmentRunConfiguration(models.Model):
+    income_tax = models.FloatField("Податок на доходи фізичних осіб", null = True)
+    profit_tax = models.FloatField("Податок на прибуток", null = True)
+    import_tax = models.FloatField("Ввізне мито", null = True)
+
+    coefficient_help = models.FloatField("Коефіцієнт розрахунку допомоги по безробіттю", null = True)
+    minimal_tax = models.FloatField("Мінімальна допомога по безробіттю", null = True)
+
+
+class OutsideWorldRunConfiguration(models.Model):
+
+    raw_price = models.FloatField("Ціна сировини", null = True)
+    capital_price = models.FloatField("Ціна капіталу", null = True)
+    good_price = models.FloatField("Ціна споживчого товару", null = True)
+
+    exchange_rate = models.FloatField("Курси обміну валют", null = True)
+    sell_probability = models.FloatField("Ймовірність купівлі товару внутрішньої фірми", null = True)
+
+
 class ModelRunConfiguration(models.Model):
     title = models.CharField(null=True, max_length=1024)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
+
+    iterations = models.IntegerField("Кількість ітерацій")
+
+    initial_money = models.FloatField("Початковий обсяг грошової маси")
+
+    household_birth = models.IntegerField("Приріст чисельності домогосподарств")
+    firm_birth = models.IntegerField("Рівень появи нових фірм")
+    money_growth = models.FloatField("Приріст грошової маси-")
+
+    firm_config = models.ForeignKey(FirmRunConfiguration, related_name= "Firm")
+    household_config = models.ForeignKey(HouseholdRunConfiguration, related_name= "Household")
+    government_config = models.ForeignKey(GovernmentRunConfiguration, related_name= "Government")
+    outside_world_config = models.ForeignKey(OutsideWorldRunConfiguration, related_name = "OutsideWorld")
+
 
     def __str__(self):
         return "Конфігурація " + str(self.title) if self.title is not None else "" + " створена " + self.created_at.strftime("%Y-%m-%d %H:%M:%S")
