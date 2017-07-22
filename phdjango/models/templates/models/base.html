@@ -64,8 +64,11 @@
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-                <li><a href="/models/">Список моделей</a></li>
-                <li><a href="/models/model/create/">Створити нову модель</a></li>
+                <li><a href="{% url 'models:model-config-index' %}">Список моделей</a></li>
+                <li><a href="{% url 'models:model-run-config-index' %}">Список сценаріїв</a></li>
+
+                <li><a href="{% url 'models:model-config-create' %}">Створити нову модель</a></li>
+                <li><a href="{% url 'models:model-run-config-create' %}">Створити новий сценарій</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <!--<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>-->

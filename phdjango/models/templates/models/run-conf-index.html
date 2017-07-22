@@ -1,0 +1,19 @@
+{% extends 'models/base.html' %}
+
+{% block title %}Список сценаріїв{% endblock %}
+
+{% block content %}
+    {% if latest_run_conf_list %}
+        <ul>
+            {% for model in latest_run_conf_list %}
+                <li>
+                    <a href="{% url 'models:model-run-config-detail' model.id %}">{{ model }}</a>
+                    (<a href="{% url 'models:model-run-config-edit-basic' model.id %}">Редагувати</a>)
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Сценаріїв поки не створено.</p>
+    {% endif %}
+
+{% endblock %}

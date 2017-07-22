@@ -8,7 +8,7 @@
             {% for model in latest_model_list %}
                 <li>
                     <a href="{% url 'models:model-config-detail' model.id %}">{{ model }}</a>
-                    (<a href="{% url 'models:model-config-edit' model.id %}">Редагувати</a>)
+                    (<a href="{% url 'models:model-config-edit-basic' model.id %}">Редагувати</a>)
                 </li>
             {% endfor %}
         </ul>

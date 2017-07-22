@@ -8,8 +8,8 @@ from django.forms import ModelForm
 from django.core import serializers
 
 
-class IndexView(generic.ListView):
-    template_name = 'models/index.html'
+class ModelIndexView(generic.ListView):
+    template_name = 'models/model-index.html'
     context_object_name = 'latest_model_list'
 
     def get_queryset(self):
@@ -30,7 +30,7 @@ class ModelResultDetailView(generic.DetailView):
 def create_model_config(request):
     model_config = ModelConfig()
     model_config.save()
-    return HttpResponseRedirect(reverse('models:model-config-edit-household_structure', args=(model_config.id,)))
+    return HttpResponseRedirect(reverse('models:model-config-edit', args=(model_config.id,)))
 
 
 def edit_model_config_household(request, model_config_id):

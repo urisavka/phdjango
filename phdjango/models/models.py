@@ -114,23 +114,23 @@ class ModelConfig(models.Model):
 
 
 class FirmRunConfiguration(models.Model):
-    demand_elasticity = models.FloatField("Еластичність попиту на продукцію")
+    demand_elasticity = models.FloatField("Еластичність попиту на продукцію", null=True)
 
-    labor_productivity = models.FloatField("Продуктивність праці")
+    labor_productivity = models.FloatField("Продуктивність праці", null=True)
 
     capital_productivity = models.FloatField("Продуктивність капіталу", null=True)
     capital_amortization = models.FloatField("Амортизація капіталу", null=True)
 
     raw_productivity = models.FloatField("Продуктивність сировини", null=True)
 
-    learning_method = models.ForeignKey(Learning, related_name="LearningMethod")
+    learning_method = models.ForeignKey(Learning, related_name="LearningMethod", null=True)
 
 
 class HouseholdRunConfiguration(models.Model):
-    count = models.IntegerField("Кількість домогосподарств")
+    count = models.IntegerField("Кількість домогосподарств", null=True)
 
     consumption_need = models.FloatField("Потреба в споживчій продукції", null=True)
-    consumption_budget = models.FloatField("Бюджет на споживання", null=True)
+    consumption_budget = models.DecimalField("Бюджет на споживання", null=True, max_digits=20, decimal_places=2)
 
 
 class GovernmentRunConfiguration(models.Model):
@@ -143,9 +143,9 @@ class GovernmentRunConfiguration(models.Model):
 
 
 class OutsideWorldRunConfiguration(models.Model):
-    raw_price = models.FloatField("Ціна сировини", null=True)
-    capital_price = models.FloatField("Ціна капіталу", null=True)
-    good_price = models.FloatField("Ціна споживчого товару", null=True)
+    raw_price = models.DecimalField("Ціна сировини", null=True, max_digits=20, decimal_places=2)
+    capital_price = models.DecimalField("Ціна капіталу", null=True, max_digits=20, decimal_places=2)
+    good_price = models.DecimalField("Ціна споживчого товару", null=True, max_digits=20, decimal_places=2)
 
     exchange_rate = models.FloatField("Курси обміну валют", null=True)
     sell_probability = models.FloatField("Ймовірність купівлі товару внутрішньої фірми", null=True)
@@ -157,11 +157,11 @@ class ModelRunConfiguration(models.Model):
 
     iterations = models.IntegerField("Кількість ітерацій", null=True)
 
-    initial_money = models.FloatField("Початковий обсяг грошової маси", null=True)
+    initial_money = models.DecimalField("Початковий обсяг грошової маси", null=True,max_digits=20,decimal_places=2)
 
     household_birth = models.IntegerField("Приріст чисельності домогосподарств", null=True)
     firm_birth = models.IntegerField("Рівень появи нових фірм", null=True)
-    money_growth = models.FloatField("Приріст грошової маси-", null=True)
+    money_growth = models.DecimalField("Приріст грошової маси-", null=True, max_digits=20, decimal_places=2)
 
     firm_config = models.ForeignKey(FirmRunConfiguration, related_name="Firm", null=True)
     household_config = models.ForeignKey(HouseholdRunConfiguration, related_name="Household", null=True)
@@ -169,8 +169,8 @@ class ModelRunConfiguration(models.Model):
     outside_world_config = models.ForeignKey(OutsideWorldRunConfiguration, related_name="OutsideWorld", null=True)
 
     def __str__(self):
-        return "Конфігурація " + str(
-            self.title) if self.title is not None else "" + " створена " + self.created_at.strftime("%Y-%m-%d %H:%M:%S")
+        return "Сценарій " + str(
+            self.title) if self.title is not None else "" + " створений " + self.created_at.strftime("%Y-%m-%d %H:%M:%S")
 
 
 class ModelResult(models.Model):

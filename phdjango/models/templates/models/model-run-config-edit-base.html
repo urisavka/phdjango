@@ -1,0 +1,26 @@
+{% extends 'models/base.html' %}
+
+{% block title %}Налаштування моделі{% endblock %}
+
+{% block content %}
+<ul class="nav nav-tabs">
+    <li {% if key == 'basic' %} class="active"{% endif %}>
+        <a href="{% url 'models:model-run-config-edit-basic' model_run_config_id %}">Основні параметри</a>
+    </li>
+    <li {% if key == 'household_config' %} class="active"{% endif %}>
+        <a href="{% url 'models:model-run-config-edit-household_config' model_run_config_id %}">Домогосподарства</a>
+    </li>
+    <li {% if key == 'government_config' %} class="active"{% endif %}>
+        <a href="{% url 'models:model-run-config-edit-government_config' model_run_config_id %}">Уряд</a>
+    </li>
+    <li {% if key == 'firm_config' %} class="active"{% endif %}>
+        <a href="{% url 'models:model-run-config-edit-firm_config' model_run_config_id %}">Фірми-виробники продукції</a>
+    </li>
+    <li {% if key == 'outside_world_config' %} class="active"{% endif %}>
+        <a href="{% url 'models:model-run-config-edit-outside_world_config' model_run_config_id %}">Зовнішній світ</a>
+    </li>
+</ul>
+<h3>{% block subtitle %}{% endblock %}</h3>
+
+{% block form %}{% endblock %}
+{% endblock %}
