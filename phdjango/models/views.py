@@ -33,10 +33,6 @@ def create_model_config(request):
     return HttpResponseRedirect(reverse('models:model-config-edit-household_structure', args=(model_config.id,)))
 
 
-def edit_model_config(request, model_config_id):
-    return HttpResponseRedirect(reverse('models:model-config-edit-household_structure', args=(model_config_id,)))
-
-
 def edit_model_config_household(request, model_config_id):
     return generic_model_config_entry(request, model_config_id, cls=HouseholdStructure, key='household_structure')
 
@@ -46,37 +42,38 @@ def edit_model_config_government(request, model_config_id):
 
 
 def edit_model_config_production_firm(request, model_config_id):
-    return generic_model_config_entry(request, model_config_id, cls=FirmStructure, key='production_firm_structure')
+    return generic_model_config_entry(request, model_config_id, cls=FirmStructure, key='production_firm_structure', firmType='production_firm')
 
 
 def edit_model_config_raw_firm(request, model_config_id):
-    return generic_model_config_entry(request, model_config_id, cls=FirmStructure, key='raw_firm_structure')
+    return generic_model_config_entry(request, model_config_id, cls=FirmStructure, key='raw_firm_structure', firmType='raw_firm')
 
 
 def edit_model_config_capital_firm(request, model_config_id):
-    return generic_model_config_entry(request, model_config_id, cls=FirmStructure, key='capital_firm_structure')
+    return generic_model_config_entry(request, model_config_id, cls=FirmStructure, key='capital_firm_structure', firmType='capital_firm')
 
 
-def edit_model_config_extra(request, model_config_id):
+def edit_model_config(request, model_config_id):
     class EntityForm(ModelForm):
         class Meta:
             model = ModelConfig
-            fields = ['outside_world']
+            fields = ['title', 'outside_world']
 
     model_config = get_object_or_404(ModelConfig, pk=model_config_id)
 
-    key = 'extra'
+    key = 'basic'
     form = EntityForm(request.POST or None, instance=model_config)
     if form.is_valid():
         my_model = form.save()
         my_model.save()
         return HttpResponseRedirect(reverse('models:model-config-edit-' + key, args=(model_config.id,)))
 
-    return render(request, 'models/run-config-edit-generic-child.html', {
+    return render(request, 'models/model-config-edit-generic-child.html', {
         'form': form,
         'model_config_id': model_config_id,
         'key': key
     })
+
 
 def get_model_view(request, model_config_id):
     model_config = get_object_or_404(ModelConfig, pk=model_config_id)
@@ -85,7 +82,6 @@ def get_model_view(request, model_config_id):
         "data": data,
         "object": model_config
     })
-
 
 
 def prepareRun(request):

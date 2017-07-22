@@ -36,11 +36,11 @@ class HouseholdStructure(models.Model):
 
 
 class FirmStructure(models.Model):
-    # type = models.CharField("Тип фірми", choices=(
-    #     ('raw_firm', 'Виробник сировини'),
-    #     ('capital_firm', 'Виробник капіталу'),
-    #     ('production_firm', 'Виробник споживчої продукції')
-    # ), default='production_firm', max_length = 1024)
+    type = models.CharField("Тип фірми", choices=(
+        ('raw_firm', 'Виробник сировини'),
+        ('capital_firm', 'Виробник капіталу'),
+        ('production_firm', 'Виробник споживчої продукції')
+    ), default='production_firm', max_length = 1024)
     salary = models.BooleanField("Заробітна платна", default=False)
     price = models.BooleanField("Ціна", default=False)
     workers_count = models.BooleanField("Планова кількість працівників", default=False)
@@ -52,19 +52,20 @@ class FirmStructure(models.Model):
 
     capital_need = models.BooleanField("Потреба в капіталі", default=False)
     capital_budget = models.BooleanField("Бюджет на закупівлю капіталу", default=False)
+
     # learning = models.ManyToManyField(Learning)
 
     def natural_key(self):
         return {
-                   "salary": self.salary,
-                   "price": self.price,
-                   "workers_count": self.workers_count,
-                   "plan": self.plan,
-                   "salary_budget": self.salary_budget,
-                   "raw_need": self.raw_need,
-                   "raw_budget": self.raw_budget,
-                   "capital_need": self.capital_need,
-                   "capital_budget": self.capital_budget
+            "salary": self.salary,
+            "price": self.price,
+            "workers_count": self.workers_count,
+            "plan": self.plan,
+            "salary_budget": self.salary_budget,
+            "raw_need": self.raw_need,
+            "raw_budget": self.raw_budget,
+            "capital_need": self.capital_need,
+            "capital_budget": self.capital_budget
         }
 
 
@@ -89,7 +90,7 @@ class GovernmentStructure(models.Model):
 class ModelConfig(models.Model):
     # general fields
     created_at = models.DateTimeField(auto_now_add=True, null=True)
-    title = models.CharField(null=True, max_length=1024)
+    title = models.CharField("Назва конфігурації моделі", null=True, max_length=1024)
     # step 1
     production_firm_structure = models.ForeignKey(FirmStructure, related_name="ProductionFirm", null=True)
     raw_firm_structure = models.ForeignKey(FirmStructure, related_name="RawFirm", null=True)
@@ -101,14 +102,15 @@ class ModelConfig(models.Model):
     outside_world = models.BooleanField("Зовнішній світ", default=False)
 
     def natural_key(self):
-        return (self.title, self.created_at, ) + self.production_firm_structure.natural_key() + \
+        return (self.title, self.created_at,) + self.production_firm_structure.natural_key() + \
                self.raw_firm_structure.natural_key() + self.capital_firm_structure.natural_key() + \
                self.household_structure.natural_key() + self.government_structure.natural_key()
 
     natural_key.dependencies = ['phdjango.FirmStructure', 'phdjango.HouseholdStructure', 'phdjango.GovernmentStructure']
 
     def __str__(self):
-        return "Модель " + str(self.title) if self.title is not None else "" + "створена " + self.created_at.strftime("%Y-%m-%d %H:%M:%S")
+        return "Модель " + str(self.title) if self.title is not None else "" + "створена " + self.created_at.strftime(
+            "%Y-%m-%d %H:%M:%S")
 
 
 class FirmRunConfiguration(models.Model):
@@ -116,60 +118,59 @@ class FirmRunConfiguration(models.Model):
 
     labor_productivity = models.FloatField("Продуктивність праці")
 
-    capital_productivity = models.FloatField("Продуктивність капіталу", null = True)
-    capital_amortization = models.FloatField("Амортизація капіталу", null = True)
+    capital_productivity = models.FloatField("Продуктивність капіталу", null=True)
+    capital_amortization = models.FloatField("Амортизація капіталу", null=True)
 
-    raw_productivity = models.FloatField("Продуктивність сировини", null = True)
+    raw_productivity = models.FloatField("Продуктивність сировини", null=True)
 
-    learning_method = models.ForeignKey(Learning, related_name = "LearningMethod")
+    learning_method = models.ForeignKey(Learning, related_name="LearningMethod")
 
 
 class HouseholdRunConfiguration(models.Model):
     count = models.IntegerField("Кількість домогосподарств")
 
-    consumption_need = models.FloatField("Потреба в споживчій продукції", null = True)
-    consumption_budget = models.FloatField("Бюджет на споживання", null = True)
+    consumption_need = models.FloatField("Потреба в споживчій продукції", null=True)
+    consumption_budget = models.FloatField("Бюджет на споживання", null=True)
 
 
 class GovernmentRunConfiguration(models.Model):
-    income_tax = models.FloatField("Податок на доходи фізичних осіб", null = True)
-    profit_tax = models.FloatField("Податок на прибуток", null = True)
-    import_tax = models.FloatField("Ввізне мито", null = True)
+    income_tax = models.FloatField("Податок на доходи фізичних осіб", null=True)
+    profit_tax = models.FloatField("Податок на прибуток", null=True)
+    import_tax = models.FloatField("Ввізне мито", null=True)
 
-    coefficient_help = models.FloatField("Коефіцієнт розрахунку допомоги по безробіттю", null = True)
-    minimal_tax = models.FloatField("Мінімальна допомога по безробіттю", null = True)
+    coefficient_help = models.FloatField("Коефіцієнт розрахунку допомоги по безробіттю", null=True)
+    minimal_tax = models.FloatField("Мінімальна допомога по безробіттю", null=True)
 
 
 class OutsideWorldRunConfiguration(models.Model):
+    raw_price = models.FloatField("Ціна сировини", null=True)
+    capital_price = models.FloatField("Ціна капіталу", null=True)
+    good_price = models.FloatField("Ціна споживчого товару", null=True)
 
-    raw_price = models.FloatField("Ціна сировини", null = True)
-    capital_price = models.FloatField("Ціна капіталу", null = True)
-    good_price = models.FloatField("Ціна споживчого товару", null = True)
-
-    exchange_rate = models.FloatField("Курси обміну валют", null = True)
-    sell_probability = models.FloatField("Ймовірність купівлі товару внутрішньої фірми", null = True)
+    exchange_rate = models.FloatField("Курси обміну валют", null=True)
+    sell_probability = models.FloatField("Ймовірність купівлі товару внутрішньої фірми", null=True)
 
 
 class ModelRunConfiguration(models.Model):
     title = models.CharField(null=True, max_length=1024)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
 
-    iterations = models.IntegerField("Кількість ітерацій")
+    iterations = models.IntegerField("Кількість ітерацій", null=True)
 
-    initial_money = models.FloatField("Початковий обсяг грошової маси")
+    initial_money = models.FloatField("Початковий обсяг грошової маси", null=True)
 
-    household_birth = models.IntegerField("Приріст чисельності домогосподарств")
-    firm_birth = models.IntegerField("Рівень появи нових фірм")
-    money_growth = models.FloatField("Приріст грошової маси-")
+    household_birth = models.IntegerField("Приріст чисельності домогосподарств", null=True)
+    firm_birth = models.IntegerField("Рівень появи нових фірм", null=True)
+    money_growth = models.FloatField("Приріст грошової маси-", null=True)
 
-    firm_config = models.ForeignKey(FirmRunConfiguration, related_name= "Firm")
-    household_config = models.ForeignKey(HouseholdRunConfiguration, related_name= "Household")
-    government_config = models.ForeignKey(GovernmentRunConfiguration, related_name= "Government")
-    outside_world_config = models.ForeignKey(OutsideWorldRunConfiguration, related_name = "OutsideWorld")
-
+    firm_config = models.ForeignKey(FirmRunConfiguration, related_name="Firm", null=True)
+    household_config = models.ForeignKey(HouseholdRunConfiguration, related_name="Household", null=True)
+    government_config = models.ForeignKey(GovernmentRunConfiguration, related_name="Government", null=True)
+    outside_world_config = models.ForeignKey(OutsideWorldRunConfiguration, related_name="OutsideWorld", null=True)
 
     def __str__(self):
-        return "Конфігурація " + str(self.title) if self.title is not None else "" + " створена " + self.created_at.strftime("%Y-%m-%d %H:%M:%S")
+        return "Конфігурація " + str(
+            self.title) if self.title is not None else "" + " створена " + self.created_at.strftime("%Y-%m-%d %H:%M:%S")
 
 
 class ModelResult(models.Model):

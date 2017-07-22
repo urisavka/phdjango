@@ -5,16 +5,18 @@ from django.forms import ModelForm
 from django.http import HttpResponseRedirect
 
 
-def generic_model_config_entry(request, model_config_id, cls, key):
+def generic_model_config_entry(request, model_config_id, cls, key, firmType=None):
     class EntityForm(ModelForm):
         class Meta:
             model = cls
-            exclude = []
+            exclude = [] if firmType is None else ['type']
 
     model_config = get_object_or_404(ModelConfig, pk=model_config_id)
     entity = getattr(model_config, key)
     if entity is None:
         entity = cls()
+        if firmType is not None:
+            entity.type = firmType
         entity.save()
         setattr(model_config, key, entity)
         model_config.save()
@@ -25,7 +27,7 @@ def generic_model_config_entry(request, model_config_id, cls, key):
         my_model.save()
         return HttpResponseRedirect(reverse('models:model-config-edit-' + key, args=(model_config.id,)))
 
-    return render(request, 'models/run-config-edit-generic-child.html', {
+    return render(request, 'models/model-config-edit-generic-child.html', {
         'form': form,
         'model_config_id': model_config_id,
         'key': key
