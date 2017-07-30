@@ -144,7 +144,7 @@ class GovernmentRunConfiguration(models.Model):
 
     def natural_key(self):
         return {
-            "raw_price": self.raw_price,
+            "income_tax": self.income_tax,
             "profit_tax": self.profit_tax,
             "import_tax": self.import_tax,
             "coefficient_help": self.coefficient_help,
