@@ -1,29 +1,6 @@
 # coding=utf-8
 from django.db import models
 
-
-class Learning(models.Model):
-    method = models.CharField("Метод навчання", choices=(
-        ('intuitive', 'Інтуїтивний метод'),
-        ('extrapolation', 'Метод екстраполяції тенденції'),
-        ('moses', 'Метод маржі прибутку'),
-        ('random', 'Випадковий вибір'),
-
-        ('rational', 'Раціональний вибір'),
-        ('nonconscious', 'Несвідоме навчання'),
-        ('qlearning', 'Q-навчання'),
-
-        ('hierarchical', 'Ієрархічна база правил'),
-        ('lcs', 'Система лінійних класифікаторів'),
-        ('regression_decision_tree', 'Регресійне дерево рішень'),
-
-        ('perceptron', 'Одношаровий персептрон'),
-        ('svm', 'Система опорних векторів'),
-        ('classification_decision_tree', 'Класифікаційне дерево рішень'),
-    ), default='random', max_length=1024)
-    count = models.IntegerField("Кількість фірм такого типу")
-
-
 class HouseholdStructure(models.Model):
     consumption_need = models.BooleanField("Потреба в споживчій продукції", default=False)
     consumption_budget = models.BooleanField("Бюджет на споживання", default=False)
@@ -52,8 +29,6 @@ class FirmStructure(models.Model):
 
     capital_need = models.BooleanField("Потреба в капіталі", default=False)
     capital_budget = models.BooleanField("Бюджет на закупівлю капіталу", default=False)
-
-    # learning = models.ManyToManyField(Learning)
 
     def natural_key(self):
         return {
@@ -123,8 +98,6 @@ class FirmRunConfiguration(models.Model):
 
     raw_productivity = models.FloatField("Продуктивність сировини", null=True)
 
-    learning_method = models.ForeignKey(Learning, related_name="LearningMethod", null=True)
-
 
 class HouseholdRunConfiguration(models.Model):
     count = models.IntegerField("Кількість домогосподарств", null=True)
@@ -171,6 +144,29 @@ class ModelRunConfiguration(models.Model):
     def __str__(self):
         return "Сценарій " + str(
             self.title) if self.title is not None else "" + " створений " + self.created_at.strftime("%Y-%m-%d %H:%M:%S")
+
+class Learning(models.Model):
+    method = models.CharField("Метод навчання", choices=(
+        ('intuitive', 'Інтуїтивний метод'),
+        ('extrapolation', 'Метод екстраполяції тенденції'),
+        ('moses', 'Метод маржі прибутку'),
+        ('random', 'Випадковий вибір'),
+
+        ('rational', 'Раціональний вибір'),
+        ('nonconscious', 'Несвідоме навчання'),
+        ('qlearning', 'Q-навчання'),
+
+        ('hierarchical', 'Ієрархічна база правил'),
+        ('lcs', 'Система лінійних класифікаторів'),
+        ('regression_decision_tree', 'Регресійне дерево рішень'),
+
+        ('perceptron', 'Одношаровий персептрон'),
+        ('svm', 'Система опорних векторів'),
+        ('classification_decision_tree', 'Класифікаційне дерево рішень'),
+    ), default='random', max_length=1024)
+    count = models.IntegerField("Кількість фірм такого типу")
+
+    firm_run_configuration = models.ForeignKey(FirmRunConfiguration, related_name="FirmRunConfiguration", null=True)
 
 
 class ModelResult(models.Model):
