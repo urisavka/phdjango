@@ -1,6 +1,7 @@
 # coding=utf-8
 from django.db import models
 
+
 class HouseholdStructure(models.Model):
     consumption_need = models.BooleanField("Потреба в споживчій продукції", default=False)
     consumption_budget = models.BooleanField("Бюджет на споживання", default=False)
@@ -89,14 +90,14 @@ class ModelConfig(models.Model):
 
 
 class FirmRunConfiguration(models.Model):
-    demand_elasticity = models.FloatField("Еластичність попиту на продукцію", null=True)
+    demand_elasticity = models.FloatField("Еластичність попиту на продукцію", null=True, blank=True)
 
-    labor_productivity = models.FloatField("Продуктивність праці", null=True)
+    labor_productivity = models.FloatField("Продуктивність праці", null=True, blank=True)
 
-    capital_productivity = models.FloatField("Продуктивність капіталу", null=True)
-    capital_amortization = models.FloatField("Амортизація капіталу", null=True)
+    capital_productivity = models.FloatField("Продуктивність капіталу", null=True, blank=True)
+    capital_amortization = models.FloatField("Амортизація капіталу", null=True, blank=True)
 
-    raw_productivity = models.FloatField("Продуктивність сировини", null=True)
+    raw_productivity = models.FloatField("Продуктивність сировини", null=True, blank=True)
 
 
 class HouseholdRunConfiguration(models.Model):
@@ -144,6 +145,7 @@ class ModelRunConfiguration(models.Model):
     def __str__(self):
         return "Сценарій " + str(
             self.title) if self.title is not None else "" + " створений " + self.created_at.strftime("%Y-%m-%d %H:%M:%S")
+
 
 class Learning(models.Model):
     method = models.CharField("Метод навчання", choices=(
