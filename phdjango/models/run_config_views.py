@@ -17,12 +17,12 @@ class RunConfIndexView(generic.ListView):
         """Return the last five created models."""
         return ModelRunConfiguration.objects.order_by('-created_at')
 
-def get_model_config_view(request, id):
-    entity = get_object_or_404(ModelRunConfiguration, pk=id)
-    data = serializers.serialize('json', [entity], indent = 2, use_natural_foreign_keys=True)
+def get_model_run_config_view(request, model_run_config_id):
+    run_config = get_object_or_404(ModelRunConfiguration, pk=model_run_config_id)
+    data = serializers.serialize('json', [run_config], indent = 2, use_natural_foreign_keys=True)
     return render(request, 'models/run-config-detail.html', {
         "data": data,
-        "object": entity
+        "object": run_config
     })
 
 def create_model_run_config(request):

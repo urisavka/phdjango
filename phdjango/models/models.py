@@ -99,12 +99,28 @@ class FirmRunConfiguration(models.Model):
 
     raw_productivity = models.FloatField("Продуктивність сировини", null=True, blank=True)
 
+    def natural_key(self):
+        return {
+            "demand_elasticity": self.demand_elasticity,
+            "labor_productivity": self.labor_productivity,
+            "capital_productivity": self.capital_productivity,
+            "capital_amortization": self.capital_amortization,
+            "raw_productivity": self.raw_productivity
+        }
+
 
 class HouseholdRunConfiguration(models.Model):
     count = models.IntegerField("Кількість домогосподарств", null=True)
 
     consumption_need = models.FloatField("Потреба в споживчій продукції", null=True)
     consumption_budget = models.DecimalField("Бюджет на споживання", null=True, max_digits=20, decimal_places=2)
+
+    def natural_key(self):
+        return {
+            "count": self.count,
+            "consumption_need": self.consumption_need,
+            "condumption_budget": self.consumption_budget
+        }
 
 
 class GovernmentRunConfiguration(models.Model):
@@ -113,7 +129,16 @@ class GovernmentRunConfiguration(models.Model):
     import_tax = models.FloatField("Ввізне мито", null=True)
 
     coefficient_help = models.FloatField("Коефіцієнт розрахунку допомоги по безробіттю", null=True)
-    minimal_tax = models.FloatField("Мінімальна допомога по безробіттю", null=True)
+    minimal_help = models.FloatField("Мінімальна допомога по безробіттю", null=True)
+
+    def natural_key(self):
+        return {
+            "raw_price": self.raw_price,
+            "profit_tax": self.profit_tax,
+            "import_tax": self.import_tax,
+            "coefficient_help": self.coefficient_help,
+            "minimal_help": self.minimal_help
+        }
 
 
 class OutsideWorldRunConfiguration(models.Model):
@@ -123,6 +148,16 @@ class OutsideWorldRunConfiguration(models.Model):
 
     exchange_rate = models.FloatField("Курси обміну валют", null=True)
     sell_probability = models.FloatField("Ймовірність купівлі товару внутрішньої фірми", null=True)
+
+    def natural_key(self):
+        return {
+            "raw_price": self.raw_price,
+            "capital_price": self.capital_price,
+            "good_price": self.good_price,
+            "exchange_rate": self.exchange_rate,
+            "sell_probability": self.sell_probability
+        }
+
 
 
 class ModelRunConfiguration(models.Model):
@@ -135,12 +170,22 @@ class ModelRunConfiguration(models.Model):
 
     household_birth = models.IntegerField("Приріст чисельності домогосподарств", null=True)
     firm_birth = models.IntegerField("Рівень появи нових фірм", null=True)
-    money_growth = models.DecimalField("Приріст грошової маси-", null=True, max_digits=20, decimal_places=2)
+    money_growth = models.DecimalField("Приріст грошової маси", null=True, max_digits=20, decimal_places=2)
 
     firm_config = models.ForeignKey(FirmRunConfiguration, related_name="Firm", null=True)
     household_config = models.ForeignKey(HouseholdRunConfiguration, related_name="Household", null=True)
     government_config = models.ForeignKey(GovernmentRunConfiguration, related_name="Government", null=True)
     outside_world_config = models.ForeignKey(OutsideWorldRunConfiguration, related_name="OutsideWorld", null=True)
+
+
+    def natural_key(self):
+        return (self.title, self.created_at,self.iterations, self.initial_money, self.household_birth, self.firm_birth,
+                self.money_growth, ) + self.firm_config.natural_key() + \
+               self.household_config.natural_key() + self.government_config.natural_key() + self.outside_world_config.natural_key()
+
+    natural_key.dependencies = ['phdjango.FirmRunConfiguration', 'phdjango.HouseholdRunConfiguration',
+                                'phdjango.GovernmentRunConfiguration', 'phdjango.OutsideWorldRunConfiguration']
+
 
     def __str__(self):
         return "Сценарій " + str(
