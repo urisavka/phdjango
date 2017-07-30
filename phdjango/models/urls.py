@@ -25,6 +25,6 @@ urlpatterns = [
     url(r'^model-run-config/(?P<model_run_config_id>[0-9]+)/edit/household/$', run_config_views.edit_model_run_config_household, name='model-run-config-edit-household_config'),
     url(r'^model-run-config/(?P<model_run_config_id>[0-9]+)/edit/government/$', run_config_views.edit_model_run_config_government, name='model-run-config-edit-government_config'),
     url(r'^model-run-config/(?P<model_run_config_id>[0-9]+)/edit/firm/$', run_config_views.edit_model_run_config_firm, name='model-run-config-edit-firm_config'),
-    url(r'^model-run-config/(?P<model_run_config_id>[0-9]+)/edit/raw-firm/$', run_config_views.edit_model_run_config_outside_world, name='model-run-config-edit-outside_world_config'),
+    url(r'^model-run-config/(?P<model_run_config_id>[0-9]+)/edit/outside-world$', run_config_views.edit_model_run_config_outside_world, name='model-run-config-edit-outside_world_config'),
     url(r'^model-run-config/(?P<model_run_config_id>[0-9]+)/edit/$', run_config_views.edit_model_run_config, name='model-run-config-edit-basic'),
 ]
