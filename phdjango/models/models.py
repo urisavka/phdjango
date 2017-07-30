@@ -211,10 +211,12 @@ class Learning(models.Model):
         ('svm', 'Система опорних векторів'),
         ('classification_decision_tree', 'Класифікаційне дерево рішень'),
     ), default='random', max_length=1024)
-    count = models.IntegerField("Кількість фірм такого типу")
+    count = models.IntegerField("Кількість фірм такого типу", default=0)
 
     firm_run_configuration = models.ForeignKey(FirmRunConfiguration, related_name="FirmRunConfiguration", null=True)
 
+    def __str__(self):
+        return self.method + ":" + str(self.count)
 
 class ModelResult(models.Model):
     modelRunConfiguration = models.ForeignKey(ModelRunConfiguration, null=True)

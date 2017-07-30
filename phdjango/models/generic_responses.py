@@ -34,7 +34,7 @@ def generic_model_config_entry(request, model_config_id, cls, key, firmType=None
     })
 
 
-def generic_model_run_config_entry(request, model_run_config_id, cls, key):
+def generic_model_run_config_entry(request, model_run_config_id, cls, key, extra=None):
     class EntityForm(ModelForm):
         class Meta:
             model = cls
@@ -57,5 +57,6 @@ def generic_model_run_config_entry(request, model_run_config_id, cls, key):
     return render(request, 'models/model-run-config-edit-generic-child.html', {
         'form': form,
         'model_run_config_id': model_run_config_id,
-        'key': key
+        'key': key,
+        'extra': extra,
     })
