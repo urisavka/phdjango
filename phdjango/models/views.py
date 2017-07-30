@@ -75,7 +75,7 @@ def edit_model_config(request, model_config_id):
     })
 
 
-def get_model_view(request, model_config_id):
+def get_model_config_view(request, model_config_id):
     model_config = get_object_or_404(ModelConfig, pk=model_config_id)
     data = serializers.serialize('json', [model_config], indent = 2, use_natural_foreign_keys=True)
     return render(request, 'models/config-detail.html', {
