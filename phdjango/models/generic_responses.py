@@ -58,5 +58,5 @@ def generic_model_run_config_entry(request, model_run_config_id, cls, key, extra
         'form': form,
         'model_run_config_id': model_run_config_id,
         'key': key,
-        'extra': extra,
+        'extra': '' if extra is None else extra,
     })
