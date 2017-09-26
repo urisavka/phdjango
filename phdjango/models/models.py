@@ -89,7 +89,32 @@ class ModelConfig(models.Model):
             "%Y-%m-%d %H:%M:%S")
 
 
-class FirmRunConfiguration(models.Model):
+class RawFirmRunConfiguration(models.Model):
+    demand_elasticity = models.FloatField("Еластичність попиту на продукцію", null=True, blank=True)
+
+    labor_productivity = models.FloatField("Продуктивність праці", null=True, blank=True)
+
+    def natural_key(self):
+        return {
+            "demand_elasticity": self.demand_elasticity,
+            "labor_productivity": self.labor_productivity
+        }
+
+class CapitalFirmRunConfiguration(models.Model):
+    demand_elasticity = models.FloatField("Еластичність попиту на продукцію", null=True, blank=True)
+
+    labor_productivity = models.FloatField("Продуктивність праці", null=True, blank=True)
+
+    raw_productivity = models.FloatField("Продуктивність сировини", null=True, blank=True)
+
+    def natural_key(self):
+        return {
+            "demand_elasticity": self.demand_elasticity,
+            "labor_productivity": self.labor_productivity,
+            "raw_productivity": self.raw_productivity
+        }
+
+class ProductionFirmRunConfiguration(models.Model):
     demand_elasticity = models.FloatField("Еластичність попиту на продукцію", null=True, blank=True)
 
     labor_productivity = models.FloatField("Продуктивність праці", null=True, blank=True)
@@ -172,7 +197,9 @@ class ModelRunConfiguration(models.Model):
     firm_birth = models.IntegerField("Рівень появи нових фірм", null=True)
     money_growth = models.DecimalField("Приріст грошової маси", null=True, max_digits=20, decimal_places=2)
 
-    firm_config = models.ForeignKey(FirmRunConfiguration, related_name="Firm", null=True)
+    raw_firm_config = models.ForeignKey(RawFirmRunConfiguration, related_name="RawFirm", null=True)
+    capital_firm_config = models.ForeignKey(CapitalFirmRunConfiguration, related_name="CapitalFirm", null=True)
+    production_firm_config = models.ForeignKey(ProductionFirmRunConfiguration, related_name="ProductionFirm", null=True)
     household_config = models.ForeignKey(HouseholdRunConfiguration, related_name="Household", null=True)
     government_config = models.ForeignKey(GovernmentRunConfiguration, related_name="Government", null=True)
     outside_world_config = models.ForeignKey(OutsideWorldRunConfiguration, related_name="OutsideWorld", null=True)
@@ -180,10 +207,12 @@ class ModelRunConfiguration(models.Model):
 
     def natural_key(self):
         return (self.title, self.created_at,self.iterations, self.initial_money, self.household_birth, self.firm_birth,
-                self.money_growth, ) + self.firm_config.natural_key() + \
-               self.household_config.natural_key() + self.government_config.natural_key() + self.outside_world_config.natural_key()
+                self.money_growth, ) + self.raw_firm_config.natural_key() + self.capital_firm_config.natural_key() + \
+               self.production_firm_config.natural_key() + self.household_config.natural_key() + self.government_config.natural_key() + \
+               self.outside_world_config.natural_key()
 
-    natural_key.dependencies = ['phdjango.FirmRunConfiguration', 'phdjango.HouseholdRunConfiguration',
+    natural_key.dependencies = ['phdjango.RawFirmRunConfiguration', 'phdjango.CapitalFirmRunConfiguration',
+                                'phdjango.ProductionFirmRunConfiguration', 'phdjango.HouseholdRunConfiguration',
                                 'phdjango.GovernmentRunConfiguration', 'phdjango.OutsideWorldRunConfiguration']
 
 
@@ -213,7 +242,7 @@ class Learning(models.Model):
     ), default='random', max_length=1024)
     count = models.IntegerField("Кількість фірм такого типу")
 
-    firm_run_configuration = models.ForeignKey(FirmRunConfiguration, related_name="FirmRunConfiguration", null=True)
+#    firm_run_configuration = models.ForeignKey(FirmRunConfiguration, related_name="FirmRunConfiguration", null=True)
 
 
 class ModelResult(models.Model):

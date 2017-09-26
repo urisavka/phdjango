@@ -38,9 +38,15 @@ def edit_model_run_config_household(request, model_run_config_id):
 def edit_model_run_config_government(request, model_run_config_id):
     return generic_model_run_config_entry(request, model_run_config_id, cls=GovernmentRunConfiguration, key='government_config')
 
+def edit_model_run_config_raw_firm(request, model_run_config_id):
+    return generic_model_run_config_entry(request, model_run_config_id, cls=RawFirmRunConfiguration, key='raw_firm_config')
 
-def edit_model_run_config_firm(request, model_run_config_id):
-    return generic_model_run_config_entry(request, model_run_config_id, cls=FirmRunConfiguration, key='firm_config')
+def edit_model_run_config_capital_firm(request, model_run_config_id):
+    return generic_model_run_config_entry(request, model_run_config_id, cls=CapitalFirmRunConfiguration, key='capital_firm_config')
+
+def edit_model_run_config_production_firm(request, model_run_config_id):
+    return generic_model_run_config_entry(request, model_run_config_id, cls=ProductionFirmRunConfiguration, key='production_firm_config')
+
 
 
 def edit_model_run_config_outside_world(request, model_run_config_id):
