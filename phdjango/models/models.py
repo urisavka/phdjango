@@ -255,6 +255,9 @@ class Learning(models.Model):
     def __str__(self):
         return self.method + ":" + str(self.count)
 
+    def __str__(self):
+        return self.method + ":" + str(self.count)
+
 
 class ModelResult(models.Model):
     modelRunConfiguration = models.ForeignKey(ModelRunConfiguration, null=True)
