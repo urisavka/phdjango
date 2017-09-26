@@ -125,12 +125,23 @@ class ProductionFirmRunConfiguration(models.Model):
     raw_productivity = models.FloatField("Продуктивність сировини", null=True, blank=True)
 
     def natural_key(self):
+        learnings = Learning.objects.filter(firm_run_configuration__in=[self.id]).all()
+
+        # @todo: replace with cute one liner :)
+        learning_keys = []
+        for learning in learnings:
+            learning_keys.append({
+                "method": learning.method,
+                "count": learning.count
+            })
+
         return {
             "demand_elasticity": self.demand_elasticity,
             "labor_productivity": self.labor_productivity,
             "capital_productivity": self.capital_productivity,
             "capital_amortization": self.capital_amortization,
-            "raw_productivity": self.raw_productivity
+            "raw_productivity": self.raw_productivity,
+            "learnings": learning_keys,
         }
 
 
@@ -158,7 +169,7 @@ class GovernmentRunConfiguration(models.Model):
 
     def natural_key(self):
         return {
-            "raw_price": self.raw_price,
+            "income_tax": self.income_tax,
             "profit_tax": self.profit_tax,
             "import_tax": self.import_tax,
             "coefficient_help": self.coefficient_help,
@@ -184,7 +195,6 @@ class OutsideWorldRunConfiguration(models.Model):
         }
 
 
-
 class ModelRunConfiguration(models.Model):
     title = models.CharField(null=True, max_length=1024)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
@@ -204,17 +214,15 @@ class ModelRunConfiguration(models.Model):
     government_config = models.ForeignKey(GovernmentRunConfiguration, related_name="Government", null=True)
     outside_world_config = models.ForeignKey(OutsideWorldRunConfiguration, related_name="OutsideWorld", null=True)
 
-
     def natural_key(self):
-        return (self.title, self.created_at,self.iterations, self.initial_money, self.household_birth, self.firm_birth,
-                self.money_growth, ) + self.raw_firm_config.natural_key() + self.capital_firm_config.natural_key() + \
+        return (self.title, self.created_at, self.iterations, self.initial_money, self.household_birth, self.firm_birth,
+                self.money_growth,) + self.raw_firm_config.natural_key() + self.capital_firm_config.natural_key() + \
                self.production_firm_config.natural_key() + self.household_config.natural_key() + self.government_config.natural_key() + \
                self.outside_world_config.natural_key()
 
     natural_key.dependencies = ['phdjango.RawFirmRunConfiguration', 'phdjango.CapitalFirmRunConfiguration',
                                 'phdjango.ProductionFirmRunConfiguration', 'phdjango.HouseholdRunConfiguration',
                                 'phdjango.GovernmentRunConfiguration', 'phdjango.OutsideWorldRunConfiguration']
-
 
     def __str__(self):
         return "Сценарій " + str(
@@ -240,9 +248,12 @@ class Learning(models.Model):
         ('svm', 'Система опорних векторів'),
         ('classification_decision_tree', 'Класифікаційне дерево рішень'),
     ), default='random', max_length=1024)
-    count = models.IntegerField("Кількість фірм такого типу")
+    count = models.IntegerField("Кількість фірм такого типу", default=0)
 
 #    firm_run_configuration = models.ForeignKey(FirmRunConfiguration, related_name="FirmRunConfiguration", null=True)
+
+    def __str__(self):
+        return self.method + ":" + str(self.count)
 
 
 class ModelResult(models.Model):

@@ -1,6 +1,11 @@
 {% extends 'models/base.html' %}
 
 {% block title %}Налаштування моделі{% endblock %}
+{% block seminav %}
+    <a href="{% url 'models:model-run-config-detail' model_run_config_id %}">
+        Переглянути JSON
+    </a>
+{% endblock %}
 
 {% block content %}
 <ul class="nav nav-tabs">

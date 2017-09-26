@@ -1,0 +1,14 @@
+<a href="{% url 'models:model-run-config-edit-firm_config-add_learning' model_run_config_id %}">
+    Додати метод прийняття рішень
+</a>
+{% if firm_learnings %}
+    <h4>Методи прийняття рішень:</h4>
+        <ul>
+            {% for learning in firm_learnings %}
+                <li>
+                    <a href="{% url 'models:model-run-config-edit-firm_config-edit_learning' model_run_config_id learning.id %}">{{ learning }}</a>
+                    <a href="{% url 'models:model-run-config-edit-firm_config-delete_learning' model_run_config_id learning.id %}">(Видалити)</a>
+                </li>
+            {% endfor %}
+        </ul>
+{% endif %}

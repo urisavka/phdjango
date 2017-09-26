@@ -1,7 +1,11 @@
 {% extends 'models/base.html' %}
 
 {% block title %}{{ object }}{% endblock %}
-
+{% block seminav %}
+    <a href="{% url 'models:model-run-config-edit-basic' object.id %}">
+        Редагувати конфігурацію
+    </a>
+{% endblock %}
 {% block content %}
    <pre>{{ data }}</pre>
 {% endblock %}
