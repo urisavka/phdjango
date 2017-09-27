@@ -75,18 +75,9 @@ def edit_model_run_config_household(request, model_run_config_id):
 def edit_model_run_config_government(request, model_run_config_id):
     return generic_model_run_config_entry(request, model_run_config_id, cls=GovernmentRunConfiguration, key='government_config')
 
-def edit_model_run_config_raw_firm(request, model_run_config_id):
-    return generic_model_run_config_entry(request, model_run_config_id, cls=RawFirmRunConfiguration, key='raw_firm_config')
-
-def edit_model_run_config_capital_firm(request, model_run_config_id):
-    return generic_model_run_config_entry(request, model_run_config_id, cls=CapitalFirmRunConfiguration, key='capital_firm_config')
-
-def edit_model_run_config_production_firm(request, model_run_config_id):
-    return generic_model_run_config_entry(request, model_run_config_id, cls=ProductionFirmRunConfiguration, key='production_firm_config')
-
-def edit_model_run_config_firm(request, model_run_config_id):
+def edit_model_run_config_firm_raw(request, model_run_config_id):
     model_run_config = get_object_or_404(ModelRunConfiguration, pk=model_run_config_id)
-    firm_config = getattr(model_run_config, 'firm_config')
+    firm_config = getattr(model_run_config, 'raw_firm_config')
     firm_learnings = Learning.objects.filter(firm_run_configuration__in=[firm_config.id]).all()
     extra = render_to_string('models/firm-learnings.html', {
         'model_run_config_id': model_run_config_id,
@@ -97,10 +88,43 @@ def edit_model_run_config_firm(request, model_run_config_id):
         request,
         model_run_config_id,
         cls=FirmRunConfiguration,
-        key='firm_config',
+        key='raw_firm_config',
         extra=extra
     )
 
+def edit_model_run_config_firm_capital(request, model_run_config_id):
+    model_run_config = get_object_or_404(ModelRunConfiguration, pk=model_run_config_id)
+    firm_config = getattr(model_run_config, 'capital_firm_config')
+    firm_learnings = Learning.objects.filter(firm_run_configuration__in=[firm_config.id]).all()
+    extra = render_to_string('models/firm-learnings.html', {
+        'model_run_config_id': model_run_config_id,
+        'firm_learnings': firm_learnings
+    })
+
+    return generic_model_run_config_entry(
+        request,
+        model_run_config_id,
+        cls=FirmRunConfiguration,
+        key='capital_firm_config',
+        extra=extra
+    )
+
+def edit_model_run_config_firm_production(request, model_run_config_id):
+    model_run_config = get_object_or_404(ModelRunConfiguration, pk=model_run_config_id)
+    firm_config = getattr(model_run_config, 'production_firm_config')
+    firm_learnings = Learning.objects.filter(firm_run_configuration__in=[firm_config.id]).all()
+    extra = render_to_string('models/firm-learnings.html', {
+        'model_run_config_id': model_run_config_id,
+        'firm_learnings': firm_learnings
+    })
+
+    return generic_model_run_config_entry(
+        request,
+        model_run_config_id,
+        cls=FirmRunConfiguration,
+        key='production_firm_config',
+        extra=extra
+    )
 
 def edit_model_run_config_outside_world(request, model_run_config_id):
     return generic_model_run_config_entry(request, model_run_config_id, cls=OutsideWorldRunConfiguration, key='outside_world_config')

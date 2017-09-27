@@ -88,81 +88,7 @@ class ModelConfig(models.Model):
         return "Модель " + str(self.title) if self.title is not None else "" + "створена " + self.created_at.strftime(
             "%Y-%m-%d %H:%M:%S")
 
-
-class RawFirmRunConfiguration(models.Model):
-    money = models.FloatField("Наявні гроші", default = 1000)
-    
-    salary = models.FloatField("Заробітна плата", null = True, blank = True)
-    price = models.FloatField("Ціна", null=True, blank=True)
-    plan = models.FloatField("Плановий обсяг виробництва", null=True, blank=True)
-    salary_budget = models.FloatField("Бюджет на оплату праці", null=True, blank=True)
-    labor_capacity = models.FloatField("Планова кількість працівників", null=True, blank=True)
-    
-    demand_elasticity = models.FloatField("Еластичність попиту на продукцію", default = -5)
-    labor_productivity = models.FloatField("Продуктивність праці", default =50)
-
-    def natural_key(self):
-        learnings = Learning.objects.filter(firm_run_configuration__in=[self.id]).all()
-
-        # @todo: replace with cute one liner :)
-        learning_keys = []
-        for learning in learnings:
-            learning_keys.append({
-                "method": learning.method,
-                "count": learning.count
-            })
-
-        return {
-            "money": self.money,
-            "salary": self.price,
-            "plan": self.plan,
-            "salary_budget": self.salary_budget,
-            "labor_capacity": self.labor_capacity,
-            "demand_elasticity": self.demand_elasticity,
-            "labor_productivity": self.labor_productivity
-        }
-
-class CapitalFirmRunConfiguration(models.Model):
-    money = models.FloatField("Наявні гроші", default=1000)
-
-    salary = models.FloatField("Заробітна плата", null=True, blank=True)
-    price = models.FloatField("Ціна", null=True, blank=True)
-    plan = models.FloatField("Плановий обсяг виробництва", null=True, blank=True)
-    salary_budget = models.FloatField("Бюджет на оплату праці", null=True, blank=True)
-    labor_capacity = models.FloatField("Планова кількість працівників", null=True, blank=True)
-
-    demand_elasticity = models.FloatField("Еластичність попиту на продукцію", default=-5)
-    labor_productivity = models.FloatField("Продуктивність праці", default=50)
-
-    raw_productivity = models.FloatField("Продуктивність сировини", null = True, blank = True)
-    raw_need = models.FloatField("Потреба в сировині", null=True, blank=True)
-    raw_budget = models.FloatField("Бюджет на закупівлю сировини", null=True, blank=True)
-
-    def natural_key(self):
-        learnings = Learning.objects.filter(firm_run_configuration__in=[self.id]).all()
-
-        # @todo: replace with cute one liner :)
-        learning_keys = []
-        for learning in learnings:
-            learning_keys.append({
-                "method": learning.method,
-                "count": learning.count
-            })
-
-        return {
-            "money": self.money,
-            "salary": self.price,
-            "plan": self.plan,
-            "salary_budget": self.salary_budget,
-            "labor_capacity": self.labor_capacity,
-            "demand_elasticity": self.demand_elasticity,
-            "labor_productivity": self.labor_productivity,
-            "raw_productivity": self.raw_productivity,
-            "raw_need": self.raw_need,
-            "raw_budget": self.raw_budget
-        }
-
-class ProductionFirmRunConfiguration(models.Model):
+class FirmRunConfiguration(models.Model):
     money = models.FloatField("Наявні гроші", default=1000)
 
     salary = models.FloatField("Заробітна плата", null=True, blank=True)
@@ -276,9 +202,10 @@ class ModelRunConfiguration(models.Model):
     firm_birth = models.IntegerField("Рівень появи нових фірм", null=True)
     money_growth = models.DecimalField("Приріст грошової маси", null=True, max_digits=20, decimal_places=2)
 
-    raw_firm_config = models.ForeignKey(RawFirmRunConfiguration, related_name="RawFirm", null=True)
-    capital_firm_config = models.ForeignKey(CapitalFirmRunConfiguration, related_name="CapitalFirm", null=True)
-    production_firm_config = models.ForeignKey(ProductionFirmRunConfiguration, related_name="ProductionFirm", null=True)
+    raw_firm_config = models.ForeignKey(FirmRunConfiguration, related_name="RawFirm", null=True)
+    capital_firm_config = models.ForeignKey(FirmRunConfiguration, related_name="CapitalFirm", null=True)
+    production_firm_config = models.ForeignKey(FirmRunConfiguration, related_name="ProductionFirm", null=True)
+
     household_config = models.ForeignKey(HouseholdRunConfiguration, related_name="Household", null=True)
     government_config = models.ForeignKey(GovernmentRunConfiguration, related_name="Government", null=True)
     outside_world_config = models.ForeignKey(OutsideWorldRunConfiguration, related_name="OutsideWorld", null=True)
@@ -289,8 +216,7 @@ class ModelRunConfiguration(models.Model):
                self.production_firm_config.natural_key() + self.household_config.natural_key() + self.government_config.natural_key() + \
                self.outside_world_config.natural_key()
 
-    natural_key.dependencies = ['phdjango.RawFirmRunConfiguration', 'phdjango.CapitalFirmRunConfiguration',
-                                'phdjango.ProductionFirmRunConfiguration', 'phdjango.HouseholdRunConfiguration',
+    natural_key.dependencies = ['phdjango.FirmRunConfiguration', 'phdjango.HouseholdRunConfiguration',
                                 'phdjango.GovernmentRunConfiguration', 'phdjango.OutsideWorldRunConfiguration']
 
     def __str__(self):
@@ -319,7 +245,7 @@ class Learning(models.Model):
     ), default='random', max_length=1024)
     count = models.IntegerField("Кількість фірм такого типу", default=0)
 
-#    firm_run_configuration = models.ForeignKey(FirmRunConfiguration, related_name="FirmRunConfiguration", null=True)
+    firm_run_configuration = models.ForeignKey(FirmRunConfiguration, related_name="FirmRunConfiguration", null=True)
 
     def __str__(self):
         return self.method + ":" + str(self.count)
