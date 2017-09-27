@@ -102,6 +102,16 @@ class RawFirmRunConfiguration(models.Model):
     labor_productivity = models.FloatField("Продуктивність праці", default =50)
 
     def natural_key(self):
+        learnings = Learning.objects.filter(firm_run_configuration__in=[self.id]).all()
+
+        # @todo: replace with cute one liner :)
+        learning_keys = []
+        for learning in learnings:
+            learning_keys.append({
+                "method": learning.method,
+                "count": learning.count
+            })
+
         return {
             "money": self.money,
             "salary": self.price,
@@ -113,28 +123,20 @@ class RawFirmRunConfiguration(models.Model):
         }
 
 class CapitalFirmRunConfiguration(models.Model):
-    demand_elasticity = models.FloatField("Еластичність попиту на продукцію", null=True, blank=True)
+    money = models.FloatField("Наявні гроші", default=1000)
 
-    labor_productivity = models.FloatField("Продуктивність праці", null=True, blank=True)
+    salary = models.FloatField("Заробітна плата", null=True, blank=True)
+    price = models.FloatField("Ціна", null=True, blank=True)
+    plan = models.FloatField("Плановий обсяг виробництва", null=True, blank=True)
+    salary_budget = models.FloatField("Бюджет на оплату праці", null=True, blank=True)
+    labor_capacity = models.FloatField("Планова кількість працівників", null=True, blank=True)
 
-    raw_productivity = models.FloatField("Продуктивність сировини", null=True, blank=True)
+    demand_elasticity = models.FloatField("Еластичність попиту на продукцію", default=-5)
+    labor_productivity = models.FloatField("Продуктивність праці", default=50)
 
-    def natural_key(self):
-        return {
-            "demand_elasticity": self.demand_elasticity,
-            "labor_productivity": self.labor_productivity,
-            "raw_productivity": self.raw_productivity
-        }
-
-class ProductionFirmRunConfiguration(models.Model):
-    demand_elasticity = models.FloatField("Еластичність попиту на продукцію", null=True, blank=True)
-
-    labor_productivity = models.FloatField("Продуктивність праці", null=True, blank=True)
-
-    capital_productivity = models.FloatField("Продуктивність капіталу", null=True, blank=True)
-    capital_amortization = models.FloatField("Амортизація капіталу", null=True, blank=True)
-
-    raw_productivity = models.FloatField("Продуктивність сировини", null=True, blank=True)
+    raw_productivity = models.FloatField("Продуктивність сировини", null = True, blank = True)
+    raw_need = models.FloatField("Потреба в сировині", null=True, blank=True)
+    raw_budget = models.FloatField("Бюджет на закупівлю сировини", null=True, blank=True)
 
     def natural_key(self):
         learnings = Learning.objects.filter(firm_run_configuration__in=[self.id]).all()
@@ -148,11 +150,66 @@ class ProductionFirmRunConfiguration(models.Model):
             })
 
         return {
+            "money": self.money,
+            "salary": self.price,
+            "plan": self.plan,
+            "salary_budget": self.salary_budget,
+            "labor_capacity": self.labor_capacity,
             "demand_elasticity": self.demand_elasticity,
             "labor_productivity": self.labor_productivity,
-            "capital_productivity": self.capital_productivity,
-            "capital_amortization": self.capital_amortization,
             "raw_productivity": self.raw_productivity,
+            "raw_need": self.raw_need,
+            "raw_budget": self.raw_budget
+        }
+
+class ProductionFirmRunConfiguration(models.Model):
+    money = models.FloatField("Наявні гроші", default=1000)
+
+    salary = models.FloatField("Заробітна плата", null=True, blank=True)
+    price = models.FloatField("Ціна", null=True, blank=True)
+    plan = models.FloatField("Плановий обсяг виробництва", null=True, blank=True)
+    salary_budget = models.FloatField("Бюджет на оплату праці", null=True, blank=True)
+    labor_capacity = models.FloatField("Планова кількість працівників", null=True, blank=True)
+
+    demand_elasticity = models.FloatField("Еластичність попиту на продукцію", default=-5)
+    labor_productivity = models.FloatField("Продуктивність праці", default=50)
+
+    raw_productivity = models.FloatField("Продуктивність сировини", null=True, blank=True)
+    raw_need = models.FloatField("Потреба в сировині", null=True, blank=True)
+    raw_budget = models.FloatField("Бюджет на закупівлю сировини", null=True, blank=True)
+
+    capital_productivity = models.FloatField("Продуктивність капіталу", null=True, blank=True)
+    capital_need = models.FloatField("Потреба в капіталі", null=True, blank=True)
+    capital_budget = models.FloatField("Бюджет на закупівлю капіталу", null=True, blank=True)
+
+    capital_amortization = models.FloatField("Амортизація капіталу", null = True, blank = True)
+
+    def natural_key(self):
+        learnings = Learning.objects.filter(firm_run_configuration__in=[self.id]).all()
+
+        # @todo: replace with cute one liner :)
+        learning_keys = []
+        for learning in learnings:
+            learning_keys.append({
+                "method": learning.method,
+                "count": learning.count
+            })
+
+        return {
+            "money": self.money,
+            "salary": self.price,
+            "plan": self.plan,
+            "salary_budget": self.salary_budget,
+            "labor_capacity": self.labor_capacity,
+            "demand_elasticity": self.demand_elasticity,
+            "labor_productivity": self.labor_productivity,
+            "raw_productivity": self.raw_productivity,
+            "raw_need": self.raw_need,
+            "raw_budget": self.raw_budget,
+            "capital_productivity": self.capital_productivity,
+            "capital_need": self.capital_need,
+            "capital_budget": self.capital_budget,
+            "capital_amortization": self.capital_amortization,
             "learnings": learning_keys,
         }
 
