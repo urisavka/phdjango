@@ -21,21 +21,21 @@ class FirmStructure(models.Model):
     ), default='production_firm', max_length = 1024)
     salary = models.BooleanField("Заробітна платна", default=False)
     price = models.BooleanField("Ціна", default=False)
-    workers_count = models.BooleanField("Планова кількість працівників", default=False)
+    labor_capacity = models.BooleanField("Планова кількість працівників", default=False)
     plan = models.BooleanField("Плановий обсяг виробництва", default=False)
     salary_budget = models.BooleanField("Бюджет на оплату праці", default=False)
 
-    raw_need = models.BooleanField("Потреба в сировині", default=False)
-    raw_budget = models.BooleanField("Бюджет на закупівлю сировини", default=False)
+    raw_need = models.NullBooleanField("Потреба в сировині", default=False, null = True)
+    raw_budget = models.NullBooleanField("Бюджет на закупівлю сировини", default=False, null = True)
 
-    capital_need = models.BooleanField("Потреба в капіталі", default=False)
-    capital_budget = models.BooleanField("Бюджет на закупівлю капіталу", default=False)
+    capital_need = models.NullBooleanField("Потреба в капіталі", default=False, null = True)
+    capital_budget = models.NullBooleanField("Бюджет на закупівлю капіталу", default=False, null = True)
 
     def natural_key(self):
         return {
             "salary": self.salary,
             "price": self.price,
-            "workers_count": self.workers_count,
+            "labor_capacity": self.labor_capacity,
             "plan": self.plan,
             "salary_budget": self.salary_budget,
             "raw_need": self.raw_need,
@@ -51,7 +51,7 @@ class GovernmentStructure(models.Model):
     import_tax = models.BooleanField("Ввізне мито", default=False)
 
     coefficient_help = models.BooleanField("Коефіцієнт розрахунку допомоги по безробіттю", default=False)
-    minimal_tax = models.BooleanField("Мінімальна допомога по безробіттю", default=False)
+    minimal_help = models.BooleanField("Мінімальна допомога по безробіттю", default=False)
 
     def natural_key(self):
         return {
@@ -59,7 +59,7 @@ class GovernmentStructure(models.Model):
             "profit_tax": self.profit_tax,
             "import_tax": self.import_tax,
             "coefficient_help": self.coefficient_help,
-            "minimal_tax": self.minimal_tax
+            "minimal_help": self.minimal_help
         }
 
 
@@ -90,12 +90,24 @@ class ModelConfig(models.Model):
 
 
 class RawFirmRunConfiguration(models.Model):
-    demand_elasticity = models.FloatField("Еластичність попиту на продукцію", null=True, blank=True)
-
-    labor_productivity = models.FloatField("Продуктивність праці", null=True, blank=True)
+    money = models.FloatField("Наявні гроші", default = 1000)
+    
+    salary = models.FloatField("Заробітна плата", null = True, blank = True)
+    price = models.FloatField("Ціна", null=True, blank=True)
+    plan = models.FloatField("Плановий обсяг виробництва", null=True, blank=True)
+    salary_budget = models.FloatField("Бюджет на оплату праці", null=True, blank=True)
+    labor_capacity = models.FloatField("Планова кількість працівників", null=True, blank=True)
+    
+    demand_elasticity = models.FloatField("Еластичність попиту на продукцію", default = -5)
+    labor_productivity = models.FloatField("Продуктивність праці", default =50)
 
     def natural_key(self):
         return {
+            "money": self.money,
+            "salary": self.price,
+            "plan": self.plan,
+            "salary_budget": self.salary_budget,
+            "labor_capacity": self.labor_capacity,
             "demand_elasticity": self.demand_elasticity,
             "labor_productivity": self.labor_productivity
         }
