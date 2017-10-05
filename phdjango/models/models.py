@@ -107,6 +107,7 @@ class FirmRunConfiguration(models.Model):
     capital_productivity = models.FloatField("Продуктивність капіталу", null=True, blank=True)
     capital_need = models.FloatField("Потреба в капіталі", null=True, blank=True)
     capital_budget = models.FloatField("Бюджет на закупівлю капіталу", null=True, blank=True)
+    capital_expenses = models.FloatField("Інвестиції в капітал", null=True, blank=True)
 
     capital_amortization = models.FloatField("Амортизація капіталу", null = True, blank = True)
 
@@ -135,6 +136,7 @@ class FirmRunConfiguration(models.Model):
             "capital_productivity": self.capital_productivity,
             "capital_need": self.capital_need,
             "capital_budget": self.capital_budget,
+            "capital_expenses": self.capital_expenses,
             "capital_amortization": self.capital_amortization,
             "learnings": learning_keys,
         }
