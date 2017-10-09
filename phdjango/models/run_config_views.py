@@ -34,16 +34,17 @@ def create_model_run_config(request):
     return HttpResponseRedirect(reverse('models:model-run-config-edit-basic', args=(model_run_config.id,)))
 
 
-def create_learning(request, model_run_config_id):
+def create_learning(request, model_run_config_id, key):
     model_run_config = get_object_or_404(ModelRunConfiguration, pk=model_run_config_id)
-    firm_config = getattr(model_run_config, 'firm_config')
+    firm_config = getattr(model_run_config, key)
     learning = Learning()
     learning.firm_run_configuration = firm_config
     learning.save()
-    return HttpResponseRedirect(reverse('models:model-run-config-edit-firm_config-edit_learning', args=(model_run_config_id, learning.id)))
+    return HttpResponseRedirect(
+        reverse('models:model-run-config-edit-firm_config-edit_learning', args=(model_run_config_id, key, learning.id)))
 
 
-def edit_learning(request, model_run_config_id, learning_id):
+def edit_learning(request, model_run_config_id, learning_id, key):
     class EntityForm(ModelForm):
         class Meta:
             model = Learning
@@ -53,19 +54,20 @@ def edit_learning(request, model_run_config_id, learning_id):
     if form.is_valid():
         my_model = form.save()
         my_model.save()
-        return HttpResponseRedirect(reverse('models:model-run-config-edit-firm_config', args=(model_run_config_id)))
+        return HttpResponseRedirect(reverse('models:model-run-config-edit-' + key, args=(model_run_config_id,)))
 
     return render(request, 'models/firm-learning.html', {
         'form': form,
         'model_run_config_id': model_run_config_id,
         'learning_id': learning_id,
+        'key': key
     })
 
 
-def delete_learning(request, model_run_config_id, learning_id):
+def delete_learning(request, model_run_config_id, learning_id, key):
     learning = get_object_or_404(Learning, pk=learning_id)
     learning.delete()
-    return HttpResponseRedirect(reverse('models:model-run-config-edit-firm_config', args=(model_run_config_id)))
+    return HttpResponseRedirect(reverse('models:model-run-config-edit-firm_config', args=(model_run_config_id, key)))
 
 
 def edit_model_run_config_household(request, model_run_config_id):
@@ -75,65 +77,42 @@ def edit_model_run_config_household(request, model_run_config_id):
 def edit_model_run_config_government(request, model_run_config_id):
     return generic_model_run_config_entry(request, model_run_config_id, cls=GovernmentRunConfiguration, key='government_config')
 
-def edit_model_run_config_firm_raw(request, model_run_config_id):
+
+def edit_model_run_config_firm(request, model_run_config_id, key):
     model_run_config = get_object_or_404(ModelRunConfiguration, pk=model_run_config_id)
-    firm_config = getattr(model_run_config, 'raw_firm_config')
+    firm_config = getattr(model_run_config, key)
     firm_learnings = []
     if firm_config is not None:
         firm_learnings = Learning.objects.filter(firm_run_configuration__in=[firm_config.id]).all()
     extra = render_to_string('models/firm-learnings.html', {
         'model_run_config_id': model_run_config_id,
-        'firm_learnings': firm_learnings
+        'firm_learnings': firm_learnings,
+        'key': key
     })
 
     return generic_model_run_config_entry(
         request,
         model_run_config_id,
         cls=FirmRunConfiguration,
-        key='raw_firm_config',
-        extra=extra
+        extra=extra,
+        key=key
     )
+
+
+def edit_model_run_config_firm_raw(request, model_run_config_id):
+    return edit_model_run_config_firm(request, model_run_config_id, 'raw_firm_config')
+
 
 def edit_model_run_config_firm_capital(request, model_run_config_id):
-    model_run_config = get_object_or_404(ModelRunConfiguration, pk=model_run_config_id)
-    firm_config = getattr(model_run_config, 'capital_firm_config')
-    firm_learnings = []
-    if firm_config is not None:
-        firm_learnings = Learning.objects.filter(firm_run_configuration__in=[firm_config.id]).all()
-    extra = render_to_string('models/firm-learnings.html', {
-        'model_run_config_id': model_run_config_id,
-        'firm_learnings': firm_learnings
-    })
+    return edit_model_run_config_firm(request, model_run_config_id, 'capital_firm_config')
 
-    return generic_model_run_config_entry(
-        request,
-        model_run_config_id,
-        cls=FirmRunConfiguration,
-        key='capital_firm_config',
-        extra=extra
-    )
 
 def edit_model_run_config_firm_production(request, model_run_config_id):
-    model_run_config = get_object_or_404(ModelRunConfiguration, pk=model_run_config_id)
-    firm_config = getattr(model_run_config, 'production_firm_config')
-    firm_learnings = []
-    if firm_config is not None:
-        firm_learnings = Learning.objects.filter(firm_run_configuration__in=[firm_config.id]).all()
-    extra = render_to_string('models/firm-learnings.html', {
-        'model_run_config_id': model_run_config_id,
-        'firm_learnings': firm_learnings
-    })
+    return edit_model_run_config_firm(request, model_run_config_id, 'production_firm_config')
 
-    return generic_model_run_config_entry(
-        request,
-        model_run_config_id,
-        cls=FirmRunConfiguration,
-        key='production_firm_config',
-        extra=extra
-    )
 
 def edit_model_run_config_outside_world(request, model_run_config_id):
-    return generic_model_run_config_entry(request, model_run_config_id, cls=OutsideWorldRunConfiguration, key='outside_world_config')
+    return generic_model_run_config_entry(request, model_run_config_id, cls=OutsideWorldRunConfiguration, key='production_firm_config')
 
 
 def edit_model_run_config(request, model_run_config_id):

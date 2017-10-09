@@ -2,7 +2,7 @@
 
 {% block title %}Конфігурація фірми{% endblock %}
 {% block content %}
-    <form action="{% url 'models:model-run-config-edit-firm_config-edit_learning' model_run_config_id learning_id %}"
+    <form action="{% url 'models:model-run-config-edit-firm_config-edit_learning' model_run_config_id key learning_id %}"
           method="post"
           enctype="multipart/form-data">
         {% csrf_token %}
