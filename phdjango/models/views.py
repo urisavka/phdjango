@@ -96,11 +96,4 @@ def prepareRun(request):
     })
 
 
-def run(request):
-    modelConfig = get_object_or_404(ModelConfig, pk=request.POST['modelConfig'])
-    modelRunConfiguration = get_object_or_404(ModelRunConfiguration, pk=request.POST['modelRunConfiguration'])
-    modelResult = ModelResult()
-    modelResult.modelConfig = modelConfig
-    modelResult.modelRunConfiguration = modelRunConfiguration
-    modelResult.save()
-    return HttpResponseRedirect(reverse('models:model-result-detail', args=(modelResult.id,)))
+
