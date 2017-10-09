@@ -78,7 +78,9 @@ def edit_model_run_config_government(request, model_run_config_id):
 def edit_model_run_config_firm_raw(request, model_run_config_id):
     model_run_config = get_object_or_404(ModelRunConfiguration, pk=model_run_config_id)
     firm_config = getattr(model_run_config, 'raw_firm_config')
-    firm_learnings = Learning.objects.filter(firm_run_configuration__in=[firm_config.id]).all()
+    firm_learnings = []
+    if firm_config is not None:
+        firm_learnings = Learning.objects.filter(firm_run_configuration__in=[firm_config.id]).all()
     extra = render_to_string('models/firm-learnings.html', {
         'model_run_config_id': model_run_config_id,
         'firm_learnings': firm_learnings
@@ -95,7 +97,9 @@ def edit_model_run_config_firm_raw(request, model_run_config_id):
 def edit_model_run_config_firm_capital(request, model_run_config_id):
     model_run_config = get_object_or_404(ModelRunConfiguration, pk=model_run_config_id)
     firm_config = getattr(model_run_config, 'capital_firm_config')
-    firm_learnings = Learning.objects.filter(firm_run_configuration__in=[firm_config.id]).all()
+    firm_learnings = []
+    if firm_config is not None:
+        firm_learnings = Learning.objects.filter(firm_run_configuration__in=[firm_config.id]).all()
     extra = render_to_string('models/firm-learnings.html', {
         'model_run_config_id': model_run_config_id,
         'firm_learnings': firm_learnings
@@ -112,7 +116,9 @@ def edit_model_run_config_firm_capital(request, model_run_config_id):
 def edit_model_run_config_firm_production(request, model_run_config_id):
     model_run_config = get_object_or_404(ModelRunConfiguration, pk=model_run_config_id)
     firm_config = getattr(model_run_config, 'production_firm_config')
-    firm_learnings = Learning.objects.filter(firm_run_configuration__in=[firm_config.id]).all()
+    firm_learnings = []
+    if firm_config is not None:
+        firm_learnings = Learning.objects.filter(firm_run_configuration__in=[firm_config.id]).all()
     extra = render_to_string('models/firm-learnings.html', {
         'model_run_config_id': model_run_config_id,
         'firm_learnings': firm_learnings
