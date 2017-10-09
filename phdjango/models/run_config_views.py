@@ -134,7 +134,8 @@ def edit_model_run_config(request, model_run_config_id):
     class EntityForm(ModelForm):
         class Meta:
             model = ModelRunConfiguration
-            exclude = ['firm_config', 'household_config', 'government_config', 'outside_world_config']
+            exclude = ['raw_firm_config', 'capital_firm_config', 'production_firm_config',
+                       'household_config', 'government_config', 'outside_world_config']
 
     model_run_config = get_object_or_404(ModelRunConfiguration, pk=model_run_config_id)
 
