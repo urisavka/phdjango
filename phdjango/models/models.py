@@ -259,10 +259,128 @@ class Learning(models.Model):
         return self.method + ":" + str(self.count)
 
 
+class WorldResult(models.Model):
+    date = models.DateTimeField()
+    step = models.IntegerField()
+
+    raw_firms = models.IntegerField(null = True)
+    capital_firms = models.IntegerField(null = True)
+    production_firms = models.IntegerField()
+    households = models.IntegerField()
+    price = models.FloatField()
+    raw_price = models.FloatField(null = True)
+    capital_price = models.FloatField(null = True)
+    production_price = models.FloatField()
+    salary = models.FloatField()
+    raw_salary = models.FloatField(null = True)
+    capital_salary = models.FloatField(null = True)
+    production_salary = models.FloatField()
+    sold = models.FloatField()
+    raw_sold = models.FloatField(null = True)
+    capital_sold = models.FloatField(null = True)
+    production_sold = models.FloatField()
+    stock = models.FloatField()
+    raw_stock = models.FloatField(null = True)
+    capital_stock = models.FloatField(null = True)
+    production_stock = models.FloatField()
+    sales = models.FloatField()
+    raw_sales = models.FloatField(null = True)
+    capital_sales = models.FloatField(null = True)
+    production_sales = models.FloatField()
+    money = models.FloatField()
+    raw_money = models.FloatField(null = True)
+    capital_money = models.FloatField(null = True)
+    production_money = models.FloatField()
+    employed = models.IntegerField()
+    raw_employed = models.IntegerField(null = True)
+    capital_employed = models.IntegerField(null = True)
+    production_employed = models.IntegerField()
+    salary_budget = models.FloatField()
+    raw_salary_budget = models.FloatField(null = True)
+    capital_salary_budget = models.FloatField(null = True)
+    production_salary_budget = models.FloatField()
+    unemployment_rate = models.FloatField()
+    raw = models.FloatField(null = True)
+    raw_need = models.FloatField(null = True)
+    raw_budget = models.FloatField(null = True)
+    capital = models.FloatField(null = True)
+    capital_need = models.FloatField(null = True)
+    capital_budget = models.FloatField(null = True)
+
+
+class FirmResult(models.Model):
+    firm_id = models.IntegerField()
+    id = models.IntegerField(primary_key=True)
+    firm_type = models.CharField(choices =
+                                 {('RawFirm', 'RawFirm'),
+                                 ('CapitalFirm', 'CapitalFirm'),
+                                 ('ProductionFirm', 'ProductionFirm')}, max_length = 1024)
+    decision_maker_type = models.CharField((
+        ('intuitive', 'Інтуїтивний метод'),
+        ('extrapolation', 'Метод екстраполяції тенденції'),
+        ('moses', 'Метод маржі прибутку'),
+        ('random', 'Випадковий вибір'),
+
+        ('rational', 'Раціональний вибір'),
+        ('nonconscious', 'Несвідоме навчання'),
+        ('qlearning', 'Q-навчання'),
+
+        ('hierarchical', 'Ієрархічна база правил'),
+        ('lcs', 'Система лінійних класифікаторів'),
+        ('regression_decision_tree', 'Регресійне дерево рішень'),
+
+        ('perceptron', 'Одношаровий персептрон'),
+        ('svm', 'Система опорних векторів'),
+        ('classification_decision_tree', 'Класифікаційне дерево рішень'),
+    ), max_length=1024)
+    firm_step = models.IntegerField()
+    money = models.FloatField()
+    price = models.FloatField()
+    salary = models.FloatField()
+    sold = models.FloatField()
+    sales = models.FloatField()
+    stock = models.FloatField()
+    profit = models.FloatField()
+    plan = models.IntegerField()
+    labor_capacity = models.IntegerField()
+    salary_budget = models.FloatField()
+    raw = models.FloatField(null = True)
+    raw_budget = models.FloatField(null = True)
+    raw_need = models.FloatField(null = True)
+    capital = models.FloatField(null = True)
+    capital_budget = models.FloatField(null = True)
+    capital_need = models.FloatField(null = True)
+    capital_expenses = models.FloatField(null = True)
+    workers = models.IntegerField()
+
+
+class LaborMarketResult(models.Model):
+    step = models.IntegerField()
+    worker_id = models.IntegerField()
+    employer_id = models.IntegerField()
+    action = models.CharField(choices = {('hire', 'hire'), ('fire', 'fire')}, max_length=4)
+    salary = models.FloatField()
+
+class GoodMarketResult(models.Model):
+    step = models.IntegerField()
+    seller_id = models.IntegerField()
+    buyer_id = models.IntegerField(null = True)
+    quantity = models.FloatField()
+    money = models.FloatField()
+
+
 class ModelResult(models.Model):
-    modelRunConfiguration = models.ForeignKey(ModelRunConfiguration, null=True)
-    modelConfig = models.ForeignKey(ModelConfig, null=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
+
+    model_run_config = models.ForeignKey(ModelRunConfiguration, null=True)
+    model_config = models.ForeignKey(ModelConfig, null=True)
+
+    world_result = models.ForeignKey(WorldResult, null = True)
+    firm_result = models.ForeignKey(FirmResult, null=True)
+    labor_market_result = models.ForeignKey(LaborMarketResult, null=True)
+    good_market_result = models.ForeignKey(GoodMarketResult, null=True)
+
+
 
     def __str__(self):
         return "Запуск " + self.created_at.strftime("%Y-%m-%d %H:%M:%S")
