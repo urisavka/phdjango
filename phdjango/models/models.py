@@ -3,8 +3,8 @@ from django.db import models
 
 
 class HouseholdStructure(models.Model):
-    consumption_need = models.BooleanField("Потреба в споживчій продукції", default=False)
-    consumption_budget = models.BooleanField("Бюджет на споживання", default=False)
+    consumption_need = models.BooleanField("Потреба в споживчій продукції", default = False)
+    consumption_budget = models.BooleanField("Бюджет на споживання", default = False)
 
     def natural_key(self):
         return {
@@ -19,17 +19,17 @@ class FirmStructure(models.Model):
         ('capital_firm', 'Виробник капіталу'),
         ('production_firm', 'Виробник споживчої продукції')
     ), default='production_firm', max_length = 1024)
-    salary = models.BooleanField("Заробітна платна", default=False)
-    price = models.BooleanField("Ціна", default=False)
+    salary = models.BooleanField("Заробітна платна", default=True)
+    price = models.BooleanField("Ціна", default=True)
     labor_capacity = models.BooleanField("Планова кількість працівників", default=False)
     plan = models.BooleanField("Плановий обсяг виробництва", default=False)
     salary_budget = models.BooleanField("Бюджет на оплату праці", default=False)
 
-    raw_need = models.NullBooleanField("Потреба в сировині", default=False, null = True)
-    raw_budget = models.NullBooleanField("Бюджет на закупівлю сировини", default=False, null = True)
+    raw_need = models.NullBooleanField("Потреба в сировині", default=None, null = True)
+    raw_budget = models.NullBooleanField("Бюджет на закупівлю сировини", default=None, null = True)
 
-    capital_need = models.NullBooleanField("Потреба в капіталі", default=False, null = True)
-    capital_budget = models.NullBooleanField("Бюджет на закупівлю капіталу", default=False, null = True)
+    capital_need = models.NullBooleanField("Потреба в капіталі", default=None, null = True)
+    capital_budget = models.NullBooleanField("Бюджет на закупівлю капіталу", default=None, null = True)
 
     def natural_key(self):
         return {
@@ -46,12 +46,13 @@ class FirmStructure(models.Model):
 
 
 class GovernmentStructure(models.Model):
-    income_tax = models.BooleanField("Податок на доходи фізичних осіб", default=False)
-    profit_tax = models.BooleanField("Податок на прибуток", default=False)
-    import_tax = models.BooleanField("Ввізне мито", default=False)
+    income_tax = models.NullBooleanField("Податок на доходи фізичних осіб", default=None, null = True)
+    profit_tax = models.NullBooleanField("Податок на прибуток", default=None, null = True)
+    import_tax = models.NullBooleanField("Ввізне мито", default=None, null = True)
 
-    coefficient_help = models.BooleanField("Коефіцієнт розрахунку допомоги по безробіттю", default=False)
-    minimal_help = models.BooleanField("Мінімальна допомога по безробіттю", default=False)
+    coefficient_help = models.NullBooleanField("Коефіцієнт розрахунку допомоги по безробіттю", default=None,
+                                           null = True)
+    minimal_help = models.NullBooleanField("Мінімальна допомога по безробіттю", default=None, null = True)
 
     def natural_key(self):
         return {
@@ -65,17 +66,17 @@ class GovernmentStructure(models.Model):
 
 class ModelConfig(models.Model):
     # general fields
-    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True, null = True)
     title = models.CharField("Назва конфігурації моделі", null=True, max_length=1024)
     # step 1
-    production_firm_structure = models.ForeignKey(FirmStructure, related_name="ProductionFirm", null=True)
+    production_firm_structure = models.ForeignKey(FirmStructure, related_name="ProductionFirm", null = True)
     raw_firm_structure = models.ForeignKey(FirmStructure, related_name="RawFirm", null=True)
     capital_firm_structure = models.ForeignKey(FirmStructure, related_name="CapitalFirm", null=True)
 
     household_structure = models.ForeignKey(HouseholdStructure, null=True)
 
     government_structure = models.ForeignKey(GovernmentStructure, null=True)
-    outside_world = models.BooleanField("Зовнішній світ", default=False)
+    outside_world = models.NullBooleanField("Зовнішній світ", default=None, null = True)
 
     def natural_key(self):
         return (self.title, self.created_at,) + self.production_firm_structure.natural_key() + \
@@ -91,8 +92,8 @@ class ModelConfig(models.Model):
 class FirmRunConfiguration(models.Model):
     money = models.FloatField("Наявні гроші", default=1000)
 
-    salary = models.FloatField("Заробітна плата", null=True, blank=True)
-    price = models.FloatField("Ціна", null=True, blank=True)
+    salary = models.FloatField("Заробітна плата", null=True, blank=True, default = 20)
+    price = models.FloatField("Ціна", null=True, blank=True, default = 5)
     plan = models.FloatField("Плановий обсяг виробництва", null=True, blank=True)
     salary_budget = models.FloatField("Бюджет на оплату праці", null=True, blank=True)
     labor_capacity = models.FloatField("Планова кількість працівників", null=True, blank=True)
@@ -103,11 +104,13 @@ class FirmRunConfiguration(models.Model):
     raw_productivity = models.FloatField("Продуктивність сировини", null=True, blank=True)
     raw_need = models.FloatField("Потреба в сировині", null=True, blank=True)
     raw_budget = models.FloatField("Бюджет на закупівлю сировини", null=True, blank=True)
+    raw = models.FloatField("Початкові запаси сировини", null=True, blank=True)
 
     capital_productivity = models.FloatField("Продуктивність капіталу", null=True, blank=True)
     capital_need = models.FloatField("Потреба в капіталі", null=True, blank=True)
     capital_budget = models.FloatField("Бюджет на закупівлю капіталу", null=True, blank=True)
     capital_expenses = models.FloatField("Інвестиції в капітал", null=True, blank=True)
+    capital = models.FloatField("Початкові запаси капіталу", null=True, blank=True)
 
     capital_amortization = models.FloatField("Амортизація капіталу", null = True, blank = True)
 
@@ -133,20 +136,22 @@ class FirmRunConfiguration(models.Model):
             "raw_productivity": self.raw_productivity,
             "raw_need": self.raw_need,
             "raw_budget": self.raw_budget,
+            "raw": self.raw,
             "capital_productivity": self.capital_productivity,
             "capital_need": self.capital_need,
             "capital_budget": self.capital_budget,
             "capital_expenses": self.capital_expenses,
             "capital_amortization": self.capital_amortization,
+            "capital": self.capital,
             "learnings": learning_keys,
         }
 
 
 class HouseholdRunConfiguration(models.Model):
-    count = models.IntegerField("Кількість домогосподарств", null=True)
+    count = models.IntegerField("Кількість домогосподарств", null=True, default = 500)
 
     consumption_need = models.FloatField("Потреба в споживчій продукції", null=True)
-    consumption_budget = models.DecimalField("Бюджет на споживання", null=True, max_digits=20, decimal_places=2)
+    consumption_budget = models.FloatField("Бюджет на споживання", null=True)
 
     def natural_key(self):
         return {
@@ -175,9 +180,9 @@ class GovernmentRunConfiguration(models.Model):
 
 
 class OutsideWorldRunConfiguration(models.Model):
-    raw_price = models.DecimalField("Ціна сировини", null=True, max_digits=20, decimal_places=2)
-    capital_price = models.DecimalField("Ціна капіталу", null=True, max_digits=20, decimal_places=2)
-    good_price = models.DecimalField("Ціна споживчого товару", null=True, max_digits=20, decimal_places=2)
+    raw_price = models.FloatField("Ціна сировини", null=True)
+    capital_price = models.FloatField("Ціна капіталу", null=True)
+    good_price = models.FloatField("Ціна споживчого товару", null=True)
 
     exchange_rate = models.FloatField("Курси обміну валют", null=True)
     sell_probability = models.FloatField("Ймовірність купівлі товару внутрішньої фірми", null=True)
@@ -194,15 +199,15 @@ class OutsideWorldRunConfiguration(models.Model):
 
 class ModelRunConfiguration(models.Model):
     title = models.CharField(null=True, max_length=1024)
-    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True, null = True)
 
-    iterations = models.IntegerField("Кількість ітерацій", null=True)
+    iterations = models.IntegerField("Кількість ітерацій", default = 10)
 
-    initial_money = models.DecimalField("Початковий обсяг грошової маси", null=True,max_digits=20,decimal_places=2)
+    initial_money = models.FloatField("Початковий обсяг грошової маси", default = 100000)
 
-    household_birth = models.IntegerField("Приріст чисельності домогосподарств", null=True)
-    firm_birth = models.IntegerField("Рівень появи нових фірм", null=True)
-    money_growth = models.DecimalField("Приріст грошової маси", null=True, max_digits=20, decimal_places=2)
+    household_birth = models.IntegerField("Приріст чисельності домогосподарств", default = 10)
+    firm_birth = models.IntegerField("Рівень появи нових фірм", default = 0)
+    money_growth = models.FloatField("Приріст грошової маси", default = 2000)
 
     raw_firm_config = models.ForeignKey(FirmRunConfiguration, related_name="RawFirm", null=True)
     capital_firm_config = models.ForeignKey(FirmRunConfiguration, related_name="CapitalFirm", null=True)
@@ -310,7 +315,6 @@ class WorldResult(models.Model):
 
 class FirmResult(models.Model):
     firm_id = models.IntegerField()
-    id = models.IntegerField(primary_key=True)
     firm_type = models.CharField(choices =
                                  {('RawFirm', 'RawFirm'),
                                  ('CapitalFirm', 'CapitalFirm'),
