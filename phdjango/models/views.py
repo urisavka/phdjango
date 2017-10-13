@@ -6,6 +6,7 @@ from django.urls import reverse
 from django.views import generic
 from django.forms import ModelForm
 from django.core import serializers
+from django.contrib import messages
 
 
 class ModelIndexView(generic.ListView):
@@ -88,7 +89,7 @@ def prepareRun(request):
     class ModelResultForm(ModelForm):
         class Meta:
             model = ModelResult
-            exclude = []
+            exclude = ['world_result', 'firm_result', 'labor_market_result', 'good_market_result']
 
     form = ModelResultForm()
     return render(request, 'models/run-conf.html', {

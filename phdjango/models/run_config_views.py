@@ -114,7 +114,7 @@ def edit_model_run_config_firm_production(request, model_run_config_id):
 
 
 def edit_model_run_config_outside_world(request, model_run_config_id):
-    return generic_model_run_config_entry(request, model_run_config_id, cls=OutsideWorldRunConfiguration, key='production_firm_config')
+    return generic_model_run_config_entry(request, model_run_config_id, cls=OutsideWorldRunConfiguration, key='outside_world_config')
 
 
 def edit_model_run_config(request, model_run_config_id):

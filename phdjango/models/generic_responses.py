@@ -3,13 +3,22 @@ from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.forms import ModelForm
 from django.http import HttpResponseRedirect
+from django.contrib import messages
 
 
 def generic_model_config_entry(request, model_config_id, cls, key, firmType=None):
     class EntityForm(ModelForm):
         class Meta:
             model = cls
-            exclude = [] if firmType is None else ['type']
+            if key == 'raw_firm_structure':
+                exclude = ['type', 'raw_need', 'raw_budget', 'capital_need', 'capital_budget']
+            elif key == 'capital_firm_structure':
+                exclude = ['type', 'capital_need', 'capital_budget']
+            elif key == 'production_firm_structure':
+                exclude = ['type']
+            else:
+                exclude = []
+
 
     model_config = get_object_or_404(ModelConfig, pk=model_config_id)
     entity = getattr(model_config, key)
@@ -38,7 +47,15 @@ def generic_model_run_config_entry(request, model_run_config_id, cls, key, extra
     class EntityForm(ModelForm):
         class Meta:
             model = cls
-            exclude = []
+            if key == 'raw_firm_config':
+                exclude = ['raw_productivity', 'raw_need', 'raw_budget', 'capital_productivity', 'raw',
+                           'capital_need', 'capital_budget', 'capital_expenses', 'capital_amortization',
+                           'capital']
+            elif key == 'capital_firm_config':
+                exclude = ['capital', 'capital_productivity',
+                           'capital_need', 'capital_budget', 'capital_expenses', 'capital_amortization']
+            else:
+                exclude = []
 
     model_run_config = get_object_or_404(ModelRunConfiguration, pk=model_run_config_id)
     entity = getattr(model_run_config, key)
