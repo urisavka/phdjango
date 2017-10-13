@@ -4,16 +4,16 @@ from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.core import serializers
-import ace
+from ace import run_ace
 
 def run(request):
-    modelConfig = get_object_or_404(ModelConfig, pk=request.POST['modelConfig'])
-    modelRunConfiguration = get_object_or_404(ModelRunConfiguration, pk=request.POST['modelRunConfiguration'])
+    modelConfig = get_object_or_404(ModelConfig, pk=request.POST['model_config'])
+    modelRunConfiguration = get_object_or_404(ModelRunConfiguration, pk=request.POST['model_run_config'])
     modelConfigJson = serializers.serialize('json', [modelConfig], indent=2, use_natural_foreign_keys=True)
     modelRunConfigurationJson = serializers.serialize('json', [modelRunConfiguration], indent=2,
                                                       use_natural_foreign_keys=True)
 
-    ace.run(modelConfigJson, modelRunConfigurationJson)
+    run_ace.run_ace(modelConfigJson, modelRunConfigurationJson)
 
     modelResult = ModelResult()
     modelResult.modelConfig = modelConfig
