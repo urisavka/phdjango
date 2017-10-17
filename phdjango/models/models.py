@@ -264,9 +264,20 @@ class Learning(models.Model):
         return self.method + ":" + str(self.count)
 
 
+class ModelResult(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+
+    model_run_config = models.ForeignKey(ModelRunConfiguration, null=True)
+    model_config = models.ForeignKey(ModelConfig, null=True)
+
+
+
+    def __str__(self):
+        return "Запуск " + self.created_at.strftime("%Y-%m-%d %H:%M:%S")
+
+
 class WorldResult(models.Model):
-    date = models.DateTimeField()
-    step = models.IntegerField()
+    model_result = models.ForeignKey(ModelResult, null = True)
 
     raw_firms = models.IntegerField(null = True)
     capital_firms = models.IntegerField(null = True)
@@ -314,6 +325,8 @@ class WorldResult(models.Model):
 
 
 class FirmResult(models.Model):
+    model_result = models.ForeignKey(ModelResult, null = True)
+
     firm_id = models.IntegerField()
     firm_type = models.CharField(choices =
                                  {('RawFirm', 'RawFirm'),
@@ -337,7 +350,7 @@ class FirmResult(models.Model):
         ('svm', 'Система опорних векторів'),
         ('classification_decision_tree', 'Класифікаційне дерево рішень'),
     ), max_length=1024)
-    firm_step = models.IntegerField()
+    step = models.IntegerField()
     money = models.FloatField()
     price = models.FloatField()
     salary = models.FloatField()
@@ -359,6 +372,8 @@ class FirmResult(models.Model):
 
 
 class LaborMarketResult(models.Model):
+    model_result = models.ForeignKey(ModelResult, null = True)
+
     step = models.IntegerField()
     worker_id = models.IntegerField()
     employer_id = models.IntegerField()
@@ -366,6 +381,8 @@ class LaborMarketResult(models.Model):
     salary = models.FloatField()
 
 class GoodMarketResult(models.Model):
+    model_result = models.ForeignKey(ModelResult, null = True)
+
     step = models.IntegerField()
     seller_id = models.IntegerField()
     buyer_id = models.IntegerField(null = True)
@@ -373,18 +390,3 @@ class GoodMarketResult(models.Model):
     money = models.FloatField()
 
 
-class ModelResult(models.Model):
-    created_at = models.DateTimeField(auto_now_add=True, null=True)
-
-    model_run_config = models.ForeignKey(ModelRunConfiguration, null=True)
-    model_config = models.ForeignKey(ModelConfig, null=True)
-
-    world_result = models.ForeignKey(WorldResult, null = True)
-    firm_result = models.ForeignKey(FirmResult, null=True)
-    labor_market_result = models.ForeignKey(LaborMarketResult, null=True)
-    good_market_result = models.ForeignKey(GoodMarketResult, null=True)
-
-
-
-    def __str__(self):
-        return "Запуск " + self.created_at.strftime("%Y-%m-%d %H:%M:%S")

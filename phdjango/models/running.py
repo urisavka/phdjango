@@ -13,10 +13,68 @@ def run(request):
     modelRunConfigurationJson = serializers.serialize('json', [modelRunConfiguration], indent=2,
                                                       use_natural_foreign_keys=True)
 
-    run_ace.run_ace(modelConfigJson, modelRunConfigurationJson)
+    history = run_ace.run_ace_from_json(modelConfigJson, modelRunConfigurationJson)
 
     modelResult = ModelResult()
-    modelResult.modelConfig = modelConfig
-    modelResult.modelRunConfiguration = modelRunConfiguration
+    modelResult.model_config = modelConfig
+    modelResult.model_run_config = modelRunConfiguration
     modelResult.save()
+
+    history_list = []
+
+    for i in range(modelRunConfiguration.iterations):
+        entry = WorldResult()
+        for field in entry.__dict__:
+            if field not in ['_state', 'id', 'model_result_id', 'date']:
+                setattr(entry, field, getattr(history['world_history'], field)[i])
+        entry.model_result = modelResult
+        entry.save()
+        history_list.append(entry)
+
+#    result = WorldResult.objects.bulk_create(history_list)
+
+    history_list = []
+
+    for firm_history in history['firm_history']:
+        for i in range(modelRunConfiguration.iterations):
+            entry = FirmResult()
+            for field in entry.__dict__:
+                if field not in ['_state', 'id', 'model_result_id', 'date']:
+                    if isinstance(getattr(firm_history, field), list):
+                        setattr(entry, field, getattr(firm_history, field)[i])
+                    else:
+                        setattr(entry, field, getattr(firm_history, field))
+            entry.model_result = modelResult
+            entry.save()
+            history_list.append(entry)
+
+#    result = FirmResult.objects.bulk_create(history_list)
+
+    history_list = []
+
+    for i in range(len(history['good_market_history'].step)):
+        entry = GoodMarketResult()
+        for field in entry.__dict__:
+            if field not in ['_state', 'id', 'model_result_id', 'date']:
+                setattr(entry, field, getattr(history['good_market_history'], field)[i])
+        entry.model_result = modelResult
+        entry.save()
+        history_list.append(entry)
+
+#    result = GoodMarketResult.objects.bulk_create(history_list)
+
+    history_list = []
+
+    for firm_history in history['labor_market_history']:
+        for i in range(len(firm_history.step)):
+            entry = LaborMarketResult()
+            for field in entry.__dict__:
+                if field not in ['_state', 'id', 'model_result_id', 'date']:
+                    setattr(entry, field, getattr(firm_history, field)[i])
+            entry.model_result = modelResult
+            entry.save()
+            history_list.append(entry)
+
+#    result = LaborMarketResult.objects.bulk_create(history_list)
+
     return HttpResponseRedirect(reverse('models:model-result-detail', args=(modelResult.id,)))
