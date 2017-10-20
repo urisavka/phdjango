@@ -379,10 +379,12 @@ class FirmResult(models.Model):
     raw_budget = models.FloatField(null = True)
     raw_need = models.FloatField(null = True)
     raw_expenses = models.FloatField(null = True)
+    raw_bought = models.FloatField(null = True)
     capital = models.FloatField(null = True)
     capital_budget = models.FloatField(null = True)
     capital_need = models.FloatField(null = True)
     capital_expenses = models.FloatField(null = True)
+    capital_bought = models.FloatField(null = True)
     workers = models.IntegerField(null = True)
 
 
