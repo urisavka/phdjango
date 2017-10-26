@@ -281,6 +281,7 @@ class ModelResult(models.Model):
 class WorldResult(models.Model):
     model_result = models.ForeignKey(ModelResult, null = True)
 
+    step = models.IntegerField(null = True)
     raw_firms = models.IntegerField(null = True)
     capital_firms = models.IntegerField(null = True)
     production_firms = models.IntegerField(null = True)
@@ -341,9 +342,10 @@ class FirmResult(models.Model):
 
     firm_id = models.IntegerField()
     firm_type = models.CharField(choices =
-                                 {('RawFirm', 'RawFirm'),
-                                 ('CapitalFirm', 'CapitalFirm'),
-                                 ('ProductionFirm', 'ProductionFirm')}, max_length = 1024)
+                                 {('RawFirm', 'Фірма-виробник сировини'),
+                                 ('CapitalFirm', 'Фірма-виробник капіталу'),
+                                 ('ProductionFirm', 'Фірма-виробник споживчої продукції')},
+                                 max_length = 1024)
     decision_maker_type = models.CharField((
         ('intuitive', 'Інтуїтивний метод'),
         ('extrapolation', 'Метод екстраполяції тенденції'),
@@ -405,5 +407,12 @@ class GoodMarketResult(models.Model):
     buyer_id = models.IntegerField(null = True)
     quantity = models.FloatField(null = True)
     money = models.FloatField(null = True)
+
+
+class ModelVerboseNames(models.Model):
+    table = models.CharField("Назва таблиці", max_length=1024, null = False)
+    field_name = models.CharField("Назва поля в базі", max_length= 1024, null = False)
+    field_human = models.CharField("Змістовна назва поля", max_length=1024, null = False)
+
 
 
