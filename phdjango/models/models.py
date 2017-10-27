@@ -413,6 +413,9 @@ class ModelVerboseNames(models.Model):
     table = models.CharField("Назва таблиці", max_length=1024, null = False)
     field_name = models.CharField("Назва поля в базі", max_length= 1024, null = False)
     field_human = models.CharField("Змістовна назва поля", max_length=1024, null = False)
+    type = models.CharField("Тип поля", choices = (
+    ('categorical', 'Категорійна'),
+    ('numerical', 'Числова')), max_length = 1024, default='categorical')
 
 
 

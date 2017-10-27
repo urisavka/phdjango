@@ -96,3 +96,6 @@ def prepareRun(request):
         'form': form,
     })
 
+def create_app(request):
+
+    return render(request, 'models/analyze.html/', {})

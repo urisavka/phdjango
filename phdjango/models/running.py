@@ -26,7 +26,10 @@ def run(request):
         entry = WorldResult()
         for field in entry.__dict__:
             if field not in ['_state', 'id', 'model_result_id', 'date']:
-                setattr(entry, field, getattr(history['world_history'], field)[i])
+                if isinstance(getattr(history['world_history'], field), list):
+                    setattr(entry, field, getattr(history['world_history'], field)[i])
+                else:
+                    setattr(entry, field, getattr(history['world_history'], field))
         entry.model_result = modelResult
         entry.save()
         history_list.append(entry)

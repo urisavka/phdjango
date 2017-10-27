@@ -3,8 +3,6 @@ from django.conf.urls import url
 from . import views
 from . import running
 from . import run_config_views
-from . import  analyze_views
-from .dash_test import create_app
 
 
 app_name = 'models'
@@ -13,8 +11,8 @@ urlpatterns = [
     #url(r'^(?P<pk>[0-9]+)/$', views.ModelConfigDetailView.as_view(), name='model-config-detail'),
     url(r'^(?P<model_config_id>[0-9]+)/$', views.get_model_config_view, name='model-config-detail'),
     url(r'^result/(?P<pk>[0-9]+)$', views.ModelResultDetailView.as_view(), name='model-result-detail'),
-    url(r'^analyze/$', create_app, name = 'analyze'),
-    #url(r'^analyze/$',analyze_views.TestWizard.as_view(), name = 'analyze'),
+    url(r'^analyze.html/$', views.create_app, name = 'analyze.html'),
+    #url(r'^analyze.html/$',analyze_views.TestWizard.as_view(), name = 'analyze.html'),
     url(r'^run/$', running.run, name='run'),
     url(r'^prepare-run/$', views.prepareRun, name='prepare-run'),
     url(r'^model/create/$', views.create_model_config, name='model-config-create'),
