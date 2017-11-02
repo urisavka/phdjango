@@ -163,6 +163,7 @@ class HouseholdRunConfiguration(models.Model):
 
 
 class GovernmentRunConfiguration(models.Model):
+    money = models.FloatField("Грошові активи", null = True)
     income_tax = models.FloatField("Податок на доходи фізичних осіб", null=True)
     profit_tax = models.FloatField("Податок на прибуток", null=True)
     import_tax = models.FloatField("Ввізне мито", null=True)
@@ -172,6 +173,7 @@ class GovernmentRunConfiguration(models.Model):
 
     def natural_key(self):
         return {
+            "money": self.money,
             "income_tax": self.income_tax,
             "profit_tax": self.profit_tax,
             "import_tax": self.import_tax,
@@ -403,11 +405,45 @@ class GoodMarketResult(models.Model):
     model_result = models.ForeignKey(ModelResult, null = True)
 
     step = models.IntegerField(null = True)
-    seller_id = models.IntegerField(null = True)
-    buyer_id = models.IntegerField(null = True)
+    seller_id = models.CharField(null = True, max_length=1024)
+    buyer_id = models.CharField(null = True, max_length= 1024)
     quantity = models.FloatField(null = True)
     money = models.FloatField(null = True)
 
+class GovernmentResult(models.Model):
+    model_result = models.ForeignKey(ModelResult, null = True)
+
+    step = models.IntegerField(null=True)
+    participant_id = models.IntegerField(null= True)
+    action = models.CharField(null = True, max_length=1024)
+    money = models.FloatField(null = True)
+
+
+class OutsideWorldResult(models.Model):
+    model_result = models.ForeignKey(ModelResult, null = True)
+    
+    step = models.IntegerField(null = True)
+    
+    raw_price = models.FloatField(null = True)
+    capital_price = models.FloatField(null = True)
+    production_price = models.FloatField(null = True)
+    
+    raw_sales = models.FloatField(null = True)
+    capital_sales = models.FloatField(null = True)
+    production_sales = models.FloatField(null = True)
+    
+    raw_sold = models.FloatField(null = True)
+    capital_sold = models.FloatField(null = True)
+    production_sold = models.FloatField(null = True)
+    
+    raw_expenses = models.FloatField(null = True)
+    capital_expenses = models.FloatField(null = True)
+    production_expenses = models.FloatField(null = True)
+    
+    raw_bought = models.FloatField(null = True)
+    capital_bought = models.FloatField(null = True)
+    production_bought = models.FloatField(null = True)
+    
 
 class ModelVerboseNames(models.Model):
     table = models.CharField("Назва таблиці", max_length=1024, null = False)
