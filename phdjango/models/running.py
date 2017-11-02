@@ -78,6 +78,28 @@ def run(request):
             entry.save()
             history_list.append(entry)
 
-#    result = LaborMarketResult.objects.bulk_create(history_list)
+    if 'government_history' in history:
+        history_list = []
+
+        for i in range(len(history['government_history'].step)):
+            entry = GovernmentResult()
+            for field in entry.__dict__:
+                if field not in ['_state', 'id', 'model_result_id', 'date']:
+                    setattr(entry, field, getattr(history['government_history'], field)[i])
+            entry.model_result = modelResult
+            entry.save()
+            history_list.append(entry)
+
+    if 'outside_world_history' in history:
+        history_list = []
+
+        for i in range(len(history['outside_world_history'].step)):
+            entry = OutsideWorldResult()
+            for field in entry.__dict__:
+                if field not in ['_state', 'id', 'model_result_id', 'date']:
+                    setattr(entry, field, getattr(history['outside_world_history'], field)[i])
+            entry.model_result = modelResult
+            entry.save()
+            history_list.append(entry)
 
     return HttpResponseRedirect(reverse('models:model-result-detail', args=(modelResult.id,)))
