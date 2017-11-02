@@ -499,5 +499,49 @@ class Migration(migrations.Migration):
             "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_labormarketresult', 'action ','Дія', 'categorical')"),
         migrations.RunSQL(
             "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_labormarketresult', 'salary ','Заробітна плата', 'numerical')"),
+        migrations.RunSQL(
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_governmentresult', 'model_result','Запуск', 'categorical')"),
+        migrations.RunSQL(
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_governmentresult', 'step','Крок', 'categorical')"),
+        migrations.RunSQL(
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_governmentresult', 'participant_id','Ід учасника транзація', 'categorical')"),
+        migrations.RunSQL(
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_governmentresult', 'action','Дія', 'categorical')"),
+        migrations.RunSQL(
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_governmentresult', 'money','Величина транзакції у грошових одиницях', 'numerical')"),
+        migrations.RunSQL(
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_outsideworldresult', 'model_result','Запуск', 'categorical')"),
+        migrations.RunSQL(
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_outsideworldresult', 'step','Крок', 'categorical')"),
+        migrations.RunSQL(
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_outsideworldresult', 'raw_price','Ціна сировини', 'numerical')"),
+        migrations.RunSQL(
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_outsideworldresult', 'capital_price','Ціна капіталу', 'numerical')"),
+        migrations.RunSQL(
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_outsideworldresult', 'production_price','Ціна споживчого товару', 'numerical')"),
+        migrations.RunSQL(
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_outsideworldresult', 'raw_sales','Обсяги продажів сировини у грошових одиницях', 'numerical')"),
+        migrations.RunSQL(
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_outsideworldresult', 'capital_sales','Обсяги продажів капіталу у грошових одиницях', 'numerical')"),
+        migrations.RunSQL(
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_outsideworldresult', 'production_sales','Обсяги продажу споживчої продукції у грошових одиницях', 'numerical')"),
+        migrations.RunSQL(
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_outsideworldresult', 'raw_sold','Обсяги продажу сировини у натуральних одиницях', 'numerical')"),
+        migrations.RunSQL(
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_outsideworldresult', 'capital_sold','Обсяги продажу капіталу у натуральних одиницях', 'numerical')"),
+        migrations.RunSQL(
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_outsideworldresult', 'production_sold','Обсяги продажу споживчої продукції у натуральних одиницях', 'numerical')"),
+        migrations.RunSQL(
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_outsideworldresult', 'raw_expenses','Витрати на закупівлю сировини', 'numerical')"),
+        migrations.RunSQL(
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_outsideworldresult', 'capital_expenses','Витрати на закупівлю капіталу', 'numerical')"),
+        migrations.RunSQL(
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_outsideworldresult', 'production_expenses','Витрати на закупівлю споживчої продукції', 'numerical')"),
+        migrations.RunSQL(
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_outsideworldresult', 'raw_bought','Закуплена сировина', 'numerical')"),
+        migrations.RunSQL(
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_outsideworldresult', 'capital_bought','Закуплений капітал', 'numerical')"),
+        migrations.RunSQL(
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_outsideworldresult', 'production_bought','Закуплена споживча продукція', 'numerical')"),
 
     ]
