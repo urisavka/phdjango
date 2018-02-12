@@ -13,7 +13,7 @@ def run(request):
     modelRunConfigurationJson = serializers.serialize('json', [modelRunConfiguration], indent=2,
                                                       use_natural_foreign_keys=True)
 
-    history = run_ace.run_ace_from_json(modelConfigJson, modelRunConfigurationJson)
+    history = run_ace.run_ace_from_json(modelConfigJson, modelRunConfigurationJson, seed = 0, learning_data=None)
 
     modelResult = ModelResult()
     modelResult.model_config = modelConfig

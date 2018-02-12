@@ -366,139 +366,139 @@ class Migration(migrations.Migration):
         migrations.RunSQL(
             "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_firmresult', 'workers','Фактична кількість працівників', 'numerical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'model_result ','Запуск', 'categorical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'model_result','Запуск', 'categorical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'step ','Крок', 'numerical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'step','Крок', 'numerical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'raw_firms ','Кількість виробників сировини', 'numerical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'raw_firms','Кількість виробників сировини', 'numerical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'capital_firms ','Кількість виробників капіталу', 'numerical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'capital_firms','Кількість виробників капіталу', 'numerical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'production_firms ','Кількість виробників споживчих товарів', 'numerical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'production_firms','Кількість виробників споживчих товарів', 'numerical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'households ','Кількість домогосподарств', 'numerical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'households','Кількість домогосподарств', 'numerical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'price ','Середня ціна', 'numerical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'price','Середня ціна', 'numerical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'raw_price ','Середня ціна сировини', 'numerical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'raw_price','Середня ціна сировини', 'numerical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'capital_price ','Середня ціна капіталу', 'numerical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'capital_price','Середня ціна капіталу', 'numerical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'production_price ','Середня ціна споживчих товарів', 'numerical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'production_price','Середня ціна споживчих товарів', 'numerical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'salary ','Середня заробітна плата', 'numerical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'salary','Середня заробітна плата', 'numerical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'raw_salary ','Середня заробітна плата у виробників сировини', 'numerical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'raw_salary','Середня заробітна плата у виробників сировини', 'numerical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'capital_salary ','Середня заробітна плата у виробників капіталу', 'numerical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'capital_salary','Середня заробітна плата у виробників капіталу', 'numerical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'production_salary ','Середня заробітна плата у виробників споживчої продукції', 'numerical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'production_salary','Середня заробітна плата у виробників споживчої продукції', 'numerical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'sold ','Обсяг продажів (у натуральних одиницях)', 'numerical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'sold','Обсяг продажів (у натуральних одиницях)', 'numerical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'raw_sold ','Обсяг продажів сировини (у натуральних одиницях)', 'numerical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'raw_sold','Обсяг продажів сировини (у натуральних одиницях)', 'numerical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'capital_sold ','Обсяг продажів капіталу (у натуральних одиницях)', 'numerical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'capital_sold','Обсяг продажів капіталу (у натуральних одиницях)', 'numerical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'production_sold ','Обсяг продажів споживчих товарів (у натуральних одиницях)', 'numerical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'production_sold','Обсяг продажів споживчих товарів (у натуральних одиницях)', 'numerical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'stock ','Запаси (у натуральних одиницях)', 'numerical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'stock','Запаси (у натуральних одиницях)', 'numerical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'raw_stock ','Запаси сировини (у натуральних одиницях)', 'numerical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'raw_stock','Запаси сировини (у натуральних одиницях)', 'numerical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'capital_stock ','Запаси капіталу (у натуральних одиницях)', 'numerical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'capital_stock','Запаси капіталу (у натуральних одиницях)', 'numerical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'production_stock ','Запаси споживчих товарів (у натуральних одиницях)', 'numerical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'production_stock','Запаси споживчих товарів (у натуральних одиницях)', 'numerical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'sales ','Обсяг продажів (у грошових одиницях)', 'numerical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'sales','Обсяг продажів (у грошових одиницях)', 'numerical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'raw_sales ','Обсяг продажів сировини (у грошових одиницях)', 'numerical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'raw_sales','Обсяг продажів сировини (у грошових одиницях)', 'numerical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'capital_sales ','Обсяг продажів капіталу (у грошових одиницях)', 'numerical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'capital_sales','Обсяг продажів капіталу (у грошових одиницях)', 'numerical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'production_sales ','Обсяг продажів споживчих товарів (у грошових одиницях)', 'numerical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'production_sales','Обсяг продажів споживчих товарів (у грошових одиницях)', 'numerical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'money ','Грошові активи', 'numerical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'money','Грошові активи', 'numerical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'raw_money ','Грошові активи виробників сировини', 'numerical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'raw_money','Грошові активи виробників сировини', 'numerical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'capital_money ','Грошові активи виробників капіталу', 'numerical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'capital_money','Грошові активи виробників капіталу', 'numerical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'production_money ','Грошові активи виробників споживчих товарів', 'numerical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'production_money','Грошові активи виробників споживчих товарів', 'numerical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'employed ','Кількість зайнятих', 'numerical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'employed','Кількість зайнятих', 'numerical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'raw_employed ','Кількість зайнятих у виробництві сировини', 'numerical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'raw_employed','Кількість зайнятих у виробництві сировини', 'numerical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'capital_employed ','Кількість зайнятих у виробництві капіталу', 'numerical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'capital_employed','Кількість зайнятих у виробництві капіталу', 'numerical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'production_employed ','Кількість зайнятих у виробництві споживчої продукції', 'numerical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'production_employed','Кількість зайнятих у виробництві споживчої продукції', 'numerical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'labor_capacity ','Планова кількість працівників', 'numerical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'labor_capacity','Планова кількість працівників', 'numerical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'raw_labor_capacity ','Планова кількість працівників на виробництві сировини', 'numerical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'raw_labor_capacity','Планова кількість працівників на виробництві сировини', 'numerical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'capital_labor_capacity ','Планова кількість працівників на виробництві капіталу', 'numerical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'capital_labor_capacity','Планова кількість працівників на виробництві капіталу', 'numerical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'production_labor_capacity ','Планова кількість працівників на виробництві споживчих товарів', 'numerical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'production_labor_capacity','Планова кількість працівників на виробництві споживчих товарів', 'numerical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'total_salary ','Загальний фонд заробітної плати', 'numerical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'total_salary','Загальний фонд заробітної плати', 'numerical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'raw_total_salary ','Загальний фонд заробітної плати у виробників сировини', 'numerical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'raw_total_salary','Загальний фонд заробітної плати у виробників сировини', 'numerical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'capital_total_salary ','Загальний фонд заробітної плати у виробників капіталу', 'numerical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'capital_total_salary','Загальний фонд заробітної плати у виробників капіталу', 'numerical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'production_total_salary ','Загальний фонд заробітної плати у виробників споживчої продукції', 'numerical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'production_total_salary','Загальний фонд заробітної плати у виробників споживчої продукції', 'numerical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'salary_budget ','Плановий фонд оплати праці', 'numerical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'salary_budget','Плановий фонд оплати праці', 'numerical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'raw_salary_budget ','Плановий фонд оплати праці у виробників сировини', 'numerical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'raw_salary_budget','Плановий фонд оплати праці у виробників сировини', 'numerical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'capital_salary_budget ','Плановий фонд оплати праці у виробників капіталу', 'numerical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'capital_salary_budget','Плановий фонд оплати праці у виробників капіталу', 'numerical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'production_salary_budget ','Плановий фонд оплати праці у виробників споживчої продукції', 'numerical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'production_salary_budget','Плановий фонд оплати праці у виробників споживчої продукції', 'numerical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'unemployment_rate ','Рівень безробіття', 'numerical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'unemployment_rate','Рівень безробіття', 'numerical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'raw ','Загальний обсяг використання сировини (у натуральних одиницях)', 'numerical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'raw','Загальний обсяг використання сировини (у натуральних одиницях)', 'numerical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'raw_need ','Потреба в сировині', 'numerical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'raw_need','Потреба в сировині', 'numerical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'raw_budget ','Плановий обсяг витрат на закупівлю сировини', 'numerical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'raw_budget','Плановий обсяг витрат на закупівлю сировини', 'numerical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'raw_expenses ','Фактичні витрати на закупівлю сировини', 'numerical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'raw_expenses','Фактичні витрати на закупівлю сировини', 'numerical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'capital ','Загальний обсяг використання капіталу (у натуральних одиницях)', 'numerical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'capital','Загальний обсяг використання капіталу (у натуральних одиницях)', 'numerical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'capital_need ','Потреба в капіталі', 'numerical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'capital_need','Потреба в капіталі', 'numerical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'capital_budget ','Плановий обсяг витрат на закупівлю капіталу', 'numerical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'capital_budget','Плановий обсяг витрат на закупівлю капіталу', 'numerical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'capital_expenses ','Фактичні витрати на закупівлю капіталу', 'numerical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'capital_expenses','Фактичні витрати на закупівлю капіталу', 'numerical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_goodmarketresult', 'model_result ','Запуск', 'categorical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_goodmarketresult', 'model_result','Запуск', 'categorical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_goodmarketresult', 'step ','Крок', 'categorical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_goodmarketresult', 'step','Крок', 'categorical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_goodmarketresult', 'seller_id ','Ід продавця', 'categorical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_goodmarketresult', 'seller_id','Ід продавця', 'categorical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_goodmarketresult', 'buyer_id ','Ід покупця', 'categorical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_goodmarketresult', 'buyer_id','Ід покупця', 'categorical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_goodmarketresult', 'quantity ','Величина транзакції у натуральних одиницях', 'numerical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_goodmarketresult', 'quantity','Величина транзакції у натуральних одиницях', 'numerical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'money ','Величина транзакції у грошових одиницях', 'numerical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_worldresult', 'money','Величина транзакції у грошових одиницях', 'numerical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_labormarketresult', 'model_result ','Запуск', 'categorical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_labormarketresult', 'model_result','Запуск', 'categorical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_labormarketresult', 'step ','Крок', 'categorical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_labormarketresult', 'step','Крок', 'categorical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_labormarketresult', 'worker_id ','Ід робітника', 'categorical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_labormarketresult', 'worker_id','Ід робітника', 'categorical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_labormarketresult', 'employer_id ','Ід наймача', 'categorical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_labormarketresult', 'employer_id','Ід наймача', 'categorical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_labormarketresult', 'action ','Дія', 'categorical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_labormarketresult', 'action','Дія', 'categorical')"),
         migrations.RunSQL(
-            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_labormarketresult', 'salary ','Заробітна плата', 'numerical')"),
+            "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_labormarketresult', 'salary','Заробітна плата', 'numerical')"),
         migrations.RunSQL(
             "INSERT INTO models_modelverbosenames(`table`, field_name, field_human, type) VALUES('models_governmentresult', 'model_result','Запуск', 'categorical')"),
         migrations.RunSQL(

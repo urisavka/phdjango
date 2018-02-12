@@ -19,7 +19,7 @@ class FirmStructure(models.Model):
         ('capital_firm', 'Виробник капіталу'),
         ('production_firm', 'Виробник споживчої продукції')
     ), default='production_firm', max_length = 1024)
-    salary = models.BooleanField("Заробітна платна", default=True)
+    salary = models.BooleanField("Заробітна плата", default=True)
     price = models.BooleanField("Ціна", default=True)
     labor_capacity = models.BooleanField("Планова кількість працівників", default=False)
     plan = models.BooleanField("Плановий обсяг виробництва", default=False)
@@ -187,16 +187,16 @@ class OutsideWorldRunConfiguration(models.Model):
     capital_price = models.FloatField("Ціна капіталу", null=True)
     good_price = models.FloatField("Ціна споживчого товару", null=True)
 
-    exchange_rate = models.FloatField("Курси обміну валют", null=True)
-    sell_probability = models.FloatField("Ймовірність купівлі товару внутрішньої фірми", null=True)
+    #exchange_rate = models.FloatField("Курси обміну валют", null=True)
+    #sell_probability = models.FloatField("Ймовірність купівлі товару внутрішньої фірми", null=True)
 
     def natural_key(self):
         return {
             "raw_price": self.raw_price,
             "capital_price": self.capital_price,
-            "good_price": self.good_price,
-            "exchange_rate": self.exchange_rate,
-            "sell_probability": self.sell_probability
+            "good_price": self.good_price #,
+     #       "exchange_rate": self.exchange_rate,
+     #       "sell_probability": self.sell_probability
         }
 
 
@@ -284,6 +284,7 @@ class WorldResult(models.Model):
     model_result = models.ForeignKey(ModelResult, null = True)
 
     step = models.IntegerField(null = True)
+    firms = models.IntegerField(null = True)
     raw_firms = models.IntegerField(null = True)
     capital_firms = models.IntegerField(null = True)
     production_firms = models.IntegerField(null = True)
@@ -390,6 +391,23 @@ class FirmResult(models.Model):
     capital_expenses = models.FloatField(null = True)
     capital_bought = models.FloatField(null = True)
     workers = models.IntegerField(null = True)
+
+
+class HouseholdResult(models.Model):
+    model_result = models.ForeignKey(ModelResult, null=True)
+
+    household_id = models.IntegerField(null = True)
+    step = models.IntegerField(null = True)
+    salary = models.FloatField(null = True)
+    base_salary = models.FloatField(null = True)
+    money = models.FloatField(null = True)
+    income = models.FloatField(null = True)
+    employer = models.IntegerField(null = True)
+    unemployment_period = models.IntegerField(null = True)
+    consumption_need = models.FloatField(null = True)
+    consumption = models.FloatField(null = True)
+    consumption_budget = models.FloatField(null = True)
+    consumption_expenses = models.FloatField(null = True)
 
 
 class LaborMarketResult(models.Model):
